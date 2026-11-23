@@ -88,6 +88,27 @@ public class FrameRecordTests
         Assert.Null(noFlags.Latitude);
     }
 
+    [Theory]
+    [InlineData(0x0010 | 0x0002 | 0x0004)]
+    [InlineData(0x0010 | 0x0200 | 0x0100 | 0x0080 | 0x0040 | 0x0008)]
+    [InlineData(0xFFFF)]
+    public void PositionIsPresentWhenThePositionFlagIsSetAmongOtherFlags(int flags)
+    {
+        var record = Minimal() with { Flags = (ushort)flags, X = 1109463, Y = 8371575 };
+
+        Assert.Equal(10.0000038, record.Longitude!.Value, 6);
+        Assert.Equal(59.9999993, record.Latitude!.Value, 6);
+    }
+
+    [Fact]
+    public void PositionIsAbsentWhenEveryFlagButThePositionFlagIsSet()
+    {
+        var record = Minimal() with { Flags = 0xFFFF & ~Units.PositionValidFlag, X = 1109463, Y = 8371575 };
+
+        Assert.Null(record.Longitude);
+        Assert.Null(record.Latitude);
+    }
+
     [Fact]
     public void ALongitudeNeedsXAndALatitudeNeedsY()
     {
@@ -95,6 +116,15 @@ public class FrameRecordTests
 
         Assert.Null(onlyY.Longitude);
         Assert.NotNull(onlyY.Latitude);
+    }
+
+    [Fact]
+    public void ALatitudeNeedsYAndALongitudeNeedsX()
+    {
+        var onlyX = Minimal() with { Flags = Units.PositionValidFlag, X = 1109463 };
+
+        Assert.NotNull(onlyX.Longitude);
+        Assert.Null(onlyX.Latitude);
     }
 
     [Fact]
