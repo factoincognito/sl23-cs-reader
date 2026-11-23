@@ -7,6 +7,7 @@ All notable changes to sl23-cs-reader are documented here.
 - 2026-11-23: the project's files (README, STATUS, backlog, local rules, memory) fitted to the setup (#2).
 - 2026-11-24: the approved design added as the specification, `docs/SPEC.md` (#3).
 - 2026-11-24: the first cut's backlog items written (#4); Adam's decision on the sonarlight excerpt as test data recorded (#6); the result of the sonarlight 0.1.8 check recorded (#7).
+- 2026-11-24: the file header and frame record (#8), the SL2 frame reader (#10) and the SL3 frame reader (#12) added to the library.
 - 2026-11-24: the starter projects replaced by the analyser's library, command-line shell and tests (#5).
 
 ## Project created

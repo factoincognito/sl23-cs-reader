@@ -236,6 +236,20 @@ public class Sl3FrameReaderTests
     }
 
     [Fact]
+    public void AnEchoSizeBeyondTheRangeOfAnIntegerIsKeptAsStored()
+    {
+        var file = Sl3File.Build(new Sl3Frame { HeaderSize = 184, EchoSize = uint.MaxValue });
+        var reader = Reader(file, header: true, echo: true);
+
+        var frame = Assert.Single(ReadAll(reader));
+
+        Assert.Equal(uint.MaxValue, (uint)frame.EchoSize);
+        Assert.Equal(184 - (long)uint.MaxValue, frame.HeaderSize);
+        Assert.Equal(0, frame.Echo!.Value.Length);
+        Assert.Null(frame.FrameIndex);
+    }
+
+    [Fact]
     public void AWrongOffsetFieldBreaksTheChainAtThatFrame()
     {
         var file = Sl3File.Build(

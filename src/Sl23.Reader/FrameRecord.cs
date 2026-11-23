@@ -15,14 +15,14 @@ public sealed record FrameRecord
     /// <summary>Gets the frame's own "offset in the file" field as stored (u32), so that a mismatch with <see cref="Position"/> is visible.</summary>
     public required uint OffsetField { get; init; }
 
-    /// <summary>Gets the header size in bytes.</summary>
-    public required int HeaderSize { get; init; }
+    /// <summary>Gets the header size in bytes: the size found, frame size minus echo size, which is negative when the echo size field exceeds the frame size.</summary>
+    public required long HeaderSize { get; init; }
 
     /// <summary>Gets the frame size in bytes, header plus echo.</summary>
     public required int FrameSize { get; init; }
 
-    /// <summary>Gets the echo size in bytes.</summary>
-    public required int EchoSize { get; init; }
+    /// <summary>Gets the echo size field in bytes as stored (SL2 u16, SL3 u32).</summary>
+    public required long EchoSize { get; init; }
 
     /// <summary>Gets the channel id.</summary>
     public required ushort ChannelId { get; init; }
