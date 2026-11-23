@@ -12,6 +12,7 @@ the project's own rules in `RULES.md`.
 | 2026-11-23 | The design is approved, with the recommendations of its section 10 read as accepted. The project's division is recorded in the product office's `DECISIONS.md`. | Adam, in chat, 23:23. |
 | 2026-11-24 | The repository stays public and holds the design; the policy's release gate for the tool stays open (design point 10). | Adam, in chat, 00:06, "public", to Clead's question whether the public repository may hold the design. |
 | 2026-11-24 | A small excerpt of the two public sonarlight example files (one SL2, one SL3, MIT) may be copied into the repository as test data, with sonarlight's licence text carried. Adam's own files are never committed. | Adam, in chat, 00:23, "yes", to Clead's question (design section 9). |
+| 2026-11-24 | Sonar-related information is kept in fomo-f, not in this repository: this project is only a proof of concept of building C# projects. The sonarlight 0.1.8 result moved there; the CS23-3 licence line and design section 6.5 stay. | Adam, in chat, 00:36, and "apyr" to Clead's recommendation of 00:36. |
 
 ## Open questions
 
