@@ -38,7 +38,7 @@ answered.
 
 ### Now
 
-- The repository is public, and the approved design says the tool stays private until the product owner says otherwise (its point 10 and section 8). Say whether the repository may hold the design: "public" or "private". Clead recommends "public": on this account's plan a private repository cannot have branch protection (checked 2026-11-23: the API refused it on the private product-office repository with "Upgrade to GitHub Pro or make this repository public"; the plan of this repository's owner was not otherwise checked). Until the answer the design is not pushed. Detail: CS23-2.
+None.
 
 ### When you have time
 
@@ -52,12 +52,12 @@ None.
 
 ## Phase 1 — First cut: record inventory and file health
 
-**Specification:** the approved design (status `approved`, Adam, 2026-11-23 23:23) is kept in the product office until it moves in: `projects/sl23-cs-reader/design.md` at commit 0fda8139f5196e937ae63ca595c83311bf7f5f40 (private repository `factoincognito/product-office`). It moves into `docs/SPEC.md` once the question under "Waiting for the product owner" is answered.
+**Specification:** the approved design (status `approved`, Adam, 2026-11-23 23:23) is `docs/SPEC.md`, moved unchanged from the product office (`projects/sl23-cs-reader/design.md` at commit 0fda8139f5196e937ae63ca595c83311bf7f5f40). Its citations of `RULES.md`, `DECISIONS.md`, `policies/` and `projects/` name the product office's files as of 2026-11-23.
 
 **Goal:** the `inventory` analysis of the approved design (its sections 3, 6 and 7) reads SL2 and SL3 files and reports what is in them and where they break. It is done when the report of design section 7.2 is produced for both formats and the expected figures for the public example files hold. (Clead's wording, not yet confirmed by Adam.)
 
 - **[DONE] CS23-1** (Adam, 2026-11-23; done 2026-11-23 23:23; product office PO-60) — Design: Adam approved the high-level design and data format ("the design is approved"); Clead recorded the approval line and set its status to `approved`.
-- **[NOW] CS23-2** (Adam, 2026-11-23; product office PO-60) — Repository: Adam created the repository with the bootstrapper (template v2.11.0, C# pack; setup PR #1 merged 2026-11-23). Open: the project's files move in from the product office (this PR, #2, and the design once Adam has answered the point in "Waiting for the product owner"), and the pointer in the product office's `PROJECTS.md` changes. The first cut runs inside PO-60's `NOW` slot and takes no sixth (Adam, 2026-11-23 22:45).
+- **[NOW] CS23-2** (Adam, 2026-11-23; product office PO-60) — Repository: Adam created the repository with the bootstrapper (template v2.11.0, C# pack; setup PR #1 merged 2026-11-23). Open: the pointer in the product office's `PROJECTS.md` changes and its `projects/sl23-cs-reader/` folder goes (the files are in: #2, and the design in #3). The first cut runs inside PO-60's `NOW` slot and takes no sixth (Adam, 2026-11-23 22:45).
 
 ---
 

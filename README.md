@@ -12,6 +12,8 @@ Goal (Clead's wording, not yet confirmed by Adam): the template's C# pack is sho
 
 Division: recorded in the product office's `DECISIONS.md`, row of 2026-11-23 (Adam, 23:23).
 
+The approved design is [`docs/SPEC.md`](docs/SPEC.md), moved here unchanged from the product office. Its citations of `RULES.md`, `DECISIONS.md`, `policies/` and `projects/` name the product office's files as of 2026-11-23; its `RULES.md § n` citations are to the product office's `RULES.md`, not to this repository's.
+
 ## About this README
 
 A project run with the Clead + Crog workflow. The product owner,
