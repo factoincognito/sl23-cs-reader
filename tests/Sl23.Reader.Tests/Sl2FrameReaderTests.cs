@@ -158,6 +158,44 @@ public class Sl2FrameReaderTests
     }
 
     [Fact]
+    public void TheEchoRunsToTheEndOfTheFrameWhenTheEchoSizeFieldIsWrong()
+    {
+        var file = Sl2File.Build(
+            new Sl2Frame { Echo = Echo10, EchoSize = 4, FrameIndex = 1 },
+            new Sl2Frame { FrameIndex = 2 });
+
+        var frames = ReadAll(Reader(file, echo: true));
+
+        Assert.Equal(Echo10, frames[0].Echo!.Value.ToArray());
+        Assert.Equal(4, frames[0].EchoSize);
+        Assert.Equal(2u, frames[1].FrameIndex);
+    }
+
+    [Fact]
+    public void AnEchoSizeLargerThanTheFrameGivesANegativeHeaderSizeFound()
+    {
+        var file = Sl2File.Build(new Sl2Frame { EchoSize = 65535 });
+
+        var frame = Assert.Single(ReadAll(Reader(file)));
+
+        Assert.Equal(65535, frame.EchoSize);
+        Assert.Equal(144 - 65535, frame.HeaderSize);
+    }
+
+    [Fact]
+    public void AShortTailWithACorrectOffsetAndAPlausibleFrameSizeBreaksTheChainBySize()
+    {
+        var tail = Sl2File.Frame(new Sl2Frame { Echo = new byte[100] }, 8)[..100];
+        using var file = new MemoryStream();
+        file.Write(Sl2File.Build());
+        file.Write(tail);
+        var reader = new Sl2FrameReader(new MemoryStream(file.ToArray()));
+
+        Assert.Null(reader.ReadNext());
+        Assert.Equal(new ChainBreak(8, 100, ChainBreakReason.InvalidFrameSize), reader.Break);
+    }
+
+    [Fact]
     public void AWrongOffsetFieldBreaksTheChainAtThatFrame()
     {
         var file = Sl2File.Build(

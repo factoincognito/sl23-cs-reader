@@ -11,7 +11,7 @@ public sealed class Sl2FrameReader
     /// <summary>The size of an SL2 frame header in bytes; the echo starts at this offset in the frame.</summary>
     public const int HeaderSize = 144;
 
-    /// <summary>The fewest bytes from which a frame can be read at all: the frame index ends at offset 40.</summary>
+    /// <summary>The fewest bytes from which a frame can be read at all: the echo size ends at offset 36 (design section 6.3).</summary>
     public const int MinimumReadable = 36;
 
     private readonly Stream stream;
