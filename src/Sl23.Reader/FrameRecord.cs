@@ -28,7 +28,7 @@ public sealed record FrameRecord
     public required ushort ChannelId { get; init; }
 
     /// <summary>Gets the channel's label (design section 6.6).</summary>
-    public string ChannelLabel => throw new NotImplementedException();
+    public string ChannelLabel => ChannelLabels.For(ChannelId);
 
     /// <summary>Gets the frame index; absent on a frame with a 128-byte SL3 header.</summary>
     public uint? FrameIndex { get; init; }
@@ -43,13 +43,14 @@ public sealed record FrameRecord
     public float? LowerLimitFeet { get; init; }
 
     /// <summary>Gets the range limits in metres; absent when a limit is missing, not finite, or the upper is not smaller than the lower.</summary>
-    public (double Upper, double Lower)? RangeLimitsMetres => throw new NotImplementedException();
+    public (double Upper, double Lower)? RangeLimitsMetres =>
+        UpperLimitFeet is { } upper && LowerLimitFeet is { } lower ? Units.RangeLimitsToMetres(upper, lower) : null;
 
     /// <summary>Gets the water depth in feet, as stored.</summary>
     public float? DepthFeet { get; init; }
 
     /// <summary>Gets the water depth in metres.</summary>
-    public double? DepthMetres => throw new NotImplementedException();
+    public double? DepthMetres => DepthFeet is { } feet ? Units.FeetToMetres(feet) : null;
 
     /// <summary>Gets the raw flags (u16).</summary>
     public ushort? Flags { get; init; }
@@ -60,11 +61,13 @@ public sealed record FrameRecord
     /// <summary>Gets the raw y value, Mercator metres.</summary>
     public int? Y { get; init; }
 
+    private bool HasPosition => Flags is { } flags && (flags & Units.PositionValidFlag) != 0;
+
     /// <summary>Gets the longitude in degrees; present only when the position flag is set and x is present.</summary>
-    public double? Longitude => throw new NotImplementedException();
+    public double? Longitude => HasPosition && X is { } x ? Units.ToLongitude(x) : null;
 
     /// <summary>Gets the latitude in degrees; present only when the position flag is set and y is present.</summary>
-    public double? Latitude => throw new NotImplementedException();
+    public double? Latitude => HasPosition && Y is { } y ? Units.ToLatitude(y) : null;
 
     /// <summary>Gets the GPS speed in knots.</summary>
     public float? GpsSpeedKnots { get; init; }
@@ -76,7 +79,7 @@ public sealed record FrameRecord
     public uint? TimeRaw { get; init; }
 
     /// <summary>Gets the time field read as a signed value, derived from <see cref="TimeRaw"/>.</summary>
-    public int? TimeSigned => throw new NotImplementedException();
+    public int? TimeSigned => TimeRaw is { } raw ? Units.TimeAsSigned(raw) : null;
 
     /// <summary>Gets the six "previous frame offset" values, for check 7; only on SL3 frames with a 168 or 184 byte header.</summary>
     public IReadOnlyList<uint>? PreviousFrameOffsets { get; init; }
