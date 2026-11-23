@@ -236,6 +236,23 @@ public class Sl3FrameReaderTests
     }
 
     [Fact]
+    public void AnEchoSizeEqualToTheFrameSizeMakesTheWholeFrameEchoAndTheHeaderSizeZero()
+    {
+        var file = Sl3File.Build(new Sl3Frame { HeaderSize = 168, EchoSize = 168 }, new Sl3Frame { FrameIndex = 2 });
+        var reader = Reader(file, header: true, echo: true);
+
+        var frames = ReadAll(reader);
+
+        Assert.Equal(2, frames.Count);
+        Assert.Equal(0, frames[0].HeaderSize);
+        Assert.Equal(168, frames[0].EchoSize);
+        Assert.Equal(0, frames[0].HeaderBytes!.Value.Length);
+        Assert.Equal(168, frames[0].Echo!.Value.Length);
+        Assert.Null(frames[0].FrameIndex);
+        Assert.Equal(2u, frames[1].FrameIndex);
+    }
+
+    [Fact]
     public void AnEchoSizeBeyondTheRangeOfAnIntegerIsKeptAsStored()
     {
         var file = Sl3File.Build(new Sl3Frame { HeaderSize = 184, EchoSize = uint.MaxValue });
