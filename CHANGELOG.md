@@ -4,6 +4,9 @@ All notable changes to sl23-cs-reader are documented here.
 
 ## [Unreleased]
 
+- 2026-11-23: the project's files (README, STATUS, backlog, local rules, memory) fitted to the setup (#2).
+- 2026-11-24: the approved design added as the specification, `docs/SPEC.md` (#3).
+
 ## Project created
 
 - Bootstrapped from the Clead + Crog project template
