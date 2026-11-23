@@ -23,8 +23,8 @@ This header is the format of this file (Process P-9 § 2).
 | [BLOCKED] | Waiting on dependency or decision |
 | [DONE] | Completed and merged |
 
-Items are numbered `PBI-<phase>.<n>`, for example the first item of
-phase one is phase 1, item 1. Numbers are never reused.
+Items are numbered `CS23-<n>` (`RULES.md` L § 4), from 1. Numbers are
+never reused.
 
 ---
 
@@ -38,11 +38,11 @@ answered.
 
 ### Now
 
-None.
+- The repository is public, and the approved design says the tool stays private until the product owner says otherwise (its point 10 and section 8). Say whether the repository may hold the design: "public" or "private". Clead recommends "public": on this account's plan a private repository cannot have branch protection (checked 2026-11-23: the API refused it on the private product-office repository with "Upgrade to GitHub Pro or make this repository public"; the plan of this repository's owner was not otherwise checked). Until the answer the design is not pushed. Detail: CS23-2.
 
 ### When you have time
 
-None.
+- Confirm the wording of the goal (README "Purpose and goal", `memory/project.md`, the Phase 1 goal below), which is Clead's and not yet confirmed. Clead recommends accepting it as written. Detail: Phase 1 goal below.
 
 ### Later
 
@@ -50,15 +50,17 @@ None.
 
 ---
 
-## Phase 1 — [PHASE NAME]
+## Phase 1 — First cut: record inventory and file health
 
-**Goal:** [What this phase delivers and how you know it is done.]
+**Specification:** the approved design (status `approved`, Adam, 2026-11-23 23:23) is kept in the product office until it moves in: `projects/sl23-cs-reader/design.md` at commit 0fda8139f5196e937ae63ca595c83311bf7f5f40 (private repository `factoincognito/product-office`). It moves into `docs/SPEC.md` once the question under "Waiting for the product owner" is answered.
 
-- [No items yet. The product owner describes the first PBI; Clead
-  specs it here.]
+**Goal:** the `inventory` analysis of the approved design (its sections 3, 6 and 7) reads SL2 and SL3 files and reports what is in them and where they break. It is done when the report of design section 7.2 is produced for both formats and the expected figures for the public example files hold. (Clead's wording, not yet confirmed by Adam.)
+
+- **[DONE] CS23-1** (Adam, 2026-11-23; done 2026-11-23 23:23; product office PO-60) — Design: Adam approved the high-level design and data format ("the design is approved"); Clead recorded the approval line and set its status to `approved`.
+- **[NOW] CS23-2** (Adam, 2026-11-23; product office PO-60) — Repository: Adam created the repository with the bootstrapper (template v2.11.0, C# pack; setup PR #1 merged 2026-11-23). Open: the project's files move in from the product office (this PR, #2, and the design once Adam has answered the point in "Waiting for the product owner"), and the pointer in the product office's `PROJECTS.md` changes. The first cut runs inside PO-60's `NOW` slot and takes no sixth (Adam, 2026-11-23 22:45).
 
 ---
 
 ## Explicitly out of scope
 
-- [Things deliberately not being built, so they are not re-proposed.]
+- Wireshark capture files, the live sonar stream and the GoFree WebSocket, writing or changing SL2/SL3 files, interpreting fields whose meaning is not established, rendering pictures or video (design section 2).
