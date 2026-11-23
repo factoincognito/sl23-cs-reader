@@ -14,16 +14,16 @@ a blocker resolved removes it.
 
 # Status
 
-Last update: 2026-11-23
+Last update: 2026-11-24
 
 ## Phase
-Build, not started: the design is approved (Adam, 2026-11-23 23:23); the project's files are being moved in from the product office.
+Build, not started: the design is approved (Adam, 2026-11-23 23:23) and is the specification, [`docs/SPEC.md`](https://github.com/factoincognito/sl23-cs-reader/blob/main/docs/SPEC.md).
 
 ## Current focus
-Moving the project's files in and fitting them to the setup ([PR #2](https://github.com/factoincognito/sl23-cs-reader/pull/2)).
+Moving the design in ([PR #3](https://github.com/factoincognito/sl23-cs-reader/pull/3)), then writing the first cut's items into the backlog.
 
 ## Next step
-Once the design, with its approval line, is in the repository (`docs/SPEC.md`, after the product owner's answer below), Clead writes the first cut's items (record inventory and file health) into [`docs/BACKLOG.md`](https://github.com/factoincognito/sl23-cs-reader/blob/main/docs/BACKLOG.md) and builds them test first, one PR per item, Crog reviewing.
+Clead writes the first cut's items (record inventory and file health) into [`docs/BACKLOG.md`](https://github.com/factoincognito/sl23-cs-reader/blob/main/docs/BACKLOG.md) and builds them test first, one PR per item, Crog reviewing.
 
 ## Blockers
-- Product Owner: say whether this public repository may hold the design (it says the tool stays private until the product owner says otherwise); the design moves in only after the answer.
+None.
