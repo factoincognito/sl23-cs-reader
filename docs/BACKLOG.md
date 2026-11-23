@@ -1,7 +1,7 @@
-# [PROJECT NAME] Product Backlog
+# sl23-cs-reader Product Backlog
 
 **Status:** Living document
-**Owner:** [PO NAME] with Clead
+**Owner:** Adam Smolowicz with Clead
 
 ---
 

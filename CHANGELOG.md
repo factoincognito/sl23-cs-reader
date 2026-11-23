@@ -1,6 +1,6 @@
 # Changelog
 
-All notable changes to [PROJECT NAME] are documented here.
+All notable changes to sl23-cs-reader are documented here.
 
 ## [Unreleased]
 
@@ -9,3 +9,6 @@ All notable changes to [PROJECT NAME] are documented here.
 - Bootstrapped from the Clead + Crog project template
   v2.11.0, built from
   factoincognito/ai-project-template-v2@721f49fc18145f174f671724d4208febbd5d5c7b.
+- Language pack: csharp.
+- Licence: none.
+- Set up by bootstrap-project.sh.
