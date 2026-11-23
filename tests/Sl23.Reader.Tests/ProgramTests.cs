@@ -5,23 +5,24 @@ namespace Sl23.Reader.Tests;
 public class ProgramTests
 {
     [Fact]
-    public void WritesAGreetingForTheFirstArgument()
+    public void NoArgumentsIsAUsageError()
     {
         using var output = new StringWriter();
 
-        var code = Program.Run(["Ada"], output);
+        var code = Program.Run([], output);
 
-        Assert.Equal(0, code);
-        Assert.Equal("Hello, Ada!" + Environment.NewLine, output.ToString());
+        Assert.Equal(2, code);
+        Assert.Equal(string.Empty, output.ToString());
     }
 
     [Fact]
-    public void GreetsEveryoneWithoutArguments()
+    public void AnUnknownCommandIsAUsageError()
     {
         using var output = new StringWriter();
 
-        Program.Run([], output);
+        var code = Program.Run(["frobnicate"], output);
 
-        Assert.Equal("Hello, world!" + Environment.NewLine, output.ToString());
+        Assert.Equal(2, code);
+        Assert.Equal(string.Empty, output.ToString());
     }
 }
