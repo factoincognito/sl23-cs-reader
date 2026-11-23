@@ -11,6 +11,7 @@ the project's own rules in `RULES.md`.
 | 2026-11-23 | The project and its repository are named sl23-cs-reader; its backlog prefix is `CS23`. | Adam, in chat, 23:06 and 23:08. |
 | 2026-11-23 | The design is approved, with the recommendations of its section 10 read as accepted. The project's division is recorded in the product office's `DECISIONS.md`. | Adam, in chat, 23:23. |
 | 2026-11-24 | The repository stays public and holds the design; the policy's release gate for the tool stays open (design point 10). | Adam, in chat, 00:06, "public", to Clead's question whether the public repository may hold the design. |
+| 2026-11-24 | A small excerpt of the two public sonarlight example files (one SL2, one SL3, MIT) may be copied into the repository as test data, with sonarlight's licence text carried. Adam's own files are never committed. | Adam, in chat, 00:23, "yes", to Clead's question (design section 9). |
 
 ## Open questions
 
