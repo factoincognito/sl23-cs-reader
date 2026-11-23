@@ -10,3 +10,10 @@ dist/
 coverage/
 .expo/
 .env
+bin/
+obj/
+TestResults/
+coverage.json
+coverage.*.json
+*.user
+.vs/

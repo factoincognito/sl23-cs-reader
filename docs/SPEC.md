@@ -1,6 +1,6 @@
-# [PROJECT NAME] — Technical Specification
+# sl23-cs-reader — Technical Specification
 
-**Date:** [DATE]
+**Date:** 2026-11-23
 **Status:** Draft
 **Owner:** Clead (technical correctness) / Adam (intent)
 

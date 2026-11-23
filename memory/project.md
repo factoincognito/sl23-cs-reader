@@ -1,9 +1,8 @@
 # Project
 
-**Name:** [PROJECT NAME]
-**Repo:** [OWNER/REPO]
-**Description:** [What the project is, who it is for, and what problem
-it solves.]
+**Name:** sl23-cs-reader
+**Repo:** factoincognito/sl23-cs-reader
+**Description:** SL2/SL3 sonar log analyser, a C# command-line app and the proof of concept of the template's C# pack
 
 **Goals:**
 - [Goal]
