@@ -2,6 +2,18 @@
 
 SL2/SL3 sonar log analyser, a C# command-line app and the proof of concept of the template's C# pack
 
+## Purpose and goal
+
+The analyser reads Lowrance/Navico SL2 and SL3 sonar log files and reports what is in them.
+
+Purpose (Adam, 2026-10-29): first, to prove that the template's C# pack works; the utility itself is secondary, and should, if possible, be useful to us and something that cannot be had by passing the file on to Claude.
+
+Goal (Clead's wording, not yet confirmed by Adam): the template's C# pack is shown to work by building and running this analyser in a repository the bootstrapper created, and the analyser's report tells Adam something about his own SL2/SL3 files that he did not know.
+
+Division: Sonatory (Adam, 2026-11-23).
+
+## About this README
+
 A project run with the Clead + Crog workflow. The product owner,
 Adam Smolowicz, decides what gets built, Clead (Claude, Tech Owner) owns
 how, and Crog (Claude Code, Senior Developer) implements. Everything

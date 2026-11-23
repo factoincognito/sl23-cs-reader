@@ -9,3 +9,7 @@ Adopted: the product owner, by the setup that created this project
 L § 3 Session start
 (1) At session start, Clead also reads `memory/context.md`.
 Adopted: the product owner, by the setup that created this project
+
+L § 4 Backlog IDs
+(1) The entries of `docs/BACKLOG.md` carry the prefix `CS23`, numbered from 1; a number is never reused.
+Adopted: the product owner, 2026-11-23 23:08, in chat (recorded in the product office's `DECISIONS.md`, row of 2026-11-23 on the SL2/SL3 log analyser)
