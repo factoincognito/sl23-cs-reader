@@ -1,9 +1,9 @@
 <Solution>
   <Folder Name="/src/">
-    <Project Path="src/Example.App/Example.App.csproj" />
-    <Project Path="src/Example/Example.csproj" />
+    <Project Path="src/Sl23.Reader.Cli/Sl23.Reader.Cli.csproj" />
+    <Project Path="src/Sl23.Reader/Sl23.Reader.csproj" />
   </Folder>
   <Folder Name="/tests/">
-    <Project Path="tests/Example.Tests/Example.Tests.csproj" />
+    <Project Path="tests/Sl23.Reader.Tests/Sl23.Reader.Tests.csproj" />
   </Folder>
 </Solution>

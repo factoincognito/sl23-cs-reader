@@ -4,6 +4,6 @@
     <OutputType>Exe</OutputType>
   </PropertyGroup>
   <ItemGroup>
-    <ProjectReference Include="../Example/Example.csproj" />
+    <ProjectReference Include="../Sl23.Reader/Sl23.Reader.csproj" />
   </ItemGroup>
 </Project>

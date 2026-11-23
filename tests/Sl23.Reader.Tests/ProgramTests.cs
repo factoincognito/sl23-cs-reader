@@ -1,6 +1,6 @@
-using Example.App;
+using Sl23.Reader.Cli;
 
-namespace Example.Tests;
+namespace Sl23.Reader.Tests;
 
 public class ProgramTests
 {

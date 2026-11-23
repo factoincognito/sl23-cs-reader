@@ -1,4 +1,4 @@
-namespace Example;
+namespace Sl23.Reader;
 
 /// <summary>Builds greetings. A starter: replace it with the project's own code.</summary>
 public static class Greeter

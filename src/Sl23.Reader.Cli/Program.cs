@@ -1,4 +1,4 @@
-namespace Example.App;
+namespace Sl23.Reader.Cli;
 
 /// <summary>The console app's entry point.</summary>
 public static class Program

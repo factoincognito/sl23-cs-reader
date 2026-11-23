@@ -1,4 +1,4 @@
-namespace Example.Tests;
+namespace Sl23.Reader.Tests;
 
 public class GreeterTests
 {
