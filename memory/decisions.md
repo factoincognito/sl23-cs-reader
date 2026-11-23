@@ -9,7 +9,7 @@ the project's own rules in `RULES.md`.
 |---|---|---|
 | 2026-10-29 | SL2/SL3 first, in its own repository, bootstrapped with the C# pack. | Adam, in chat; the pack is shown to work with real code. |
 | 2026-11-23 | The project and its repository are named sl23-cs-reader; its backlog prefix is `CS23`. | Adam, in chat, 23:06 and 23:08. |
-| 2026-11-23 | The design is approved, with the recommendations of its section 10 read as accepted. The project belongs to Sonatory. | Adam, in chat, 23:23. |
+| 2026-11-23 | The design is approved, with the recommendations of its section 10 read as accepted. The project's division is recorded in the product office's `DECISIONS.md`. | Adam, in chat, 23:23. |
 
 ## Open questions
 

@@ -10,7 +10,7 @@ Purpose (Adam, 2026-10-29): first, to prove that the template's C# pack works; t
 
 Goal (Clead's wording, not yet confirmed by Adam): the template's C# pack is shown to work by building and running this analyser in a repository the bootstrapper created, and the analyser's report tells Adam something about his own SL2/SL3 files that he did not know.
 
-Division: Sonatory (Adam, 2026-11-23).
+Division: recorded in the product office's `DECISIONS.md`, row of 2026-11-23 (Adam, 23:23).
 
 ## About this README
 
