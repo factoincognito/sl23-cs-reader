@@ -43,6 +43,7 @@ None.
 ### When you have time
 
 - Confirm the wording of the goal (README "Purpose and goal", `memory/project.md`, the Phase 1 goal below), which is Clead's and not yet confirmed. Clead recommends accepting it as written. Detail: Phase 1 goal below.
+- Say whether a small excerpt of the two public sonarlight example files (one SL2, one SL3, MIT, licence text carried) may be copied in as test data, so that [CS23-12](https://github.com/factoincognito/sl23-cs-reader/blob/main/docs/BACKLOG.md) can check the expected frame counts (design sections 8 and 9). Clead recommends yes; without it the counts are not checked on real files. Detail: CS23-12 below.
 
 ### Later
 
@@ -57,7 +58,17 @@ None.
 **Goal:** the `inventory` analysis of the approved design (its sections 3, 6 and 7) reads SL2 and SL3 files and reports what is in them and where they break. It is done when the report of design section 7.2 is produced for both formats and the expected figures for the public example files hold. (Clead's wording, not yet confirmed by Adam.)
 
 - **[DONE] CS23-1** (Adam, 2026-11-23; done 2026-11-23 23:23; product office PO-60) — Design: Adam approved the high-level design and data format ("the design is approved"); Clead recorded the approval line and set its status to `approved`.
-- **[NOW] CS23-2** (Adam, 2026-11-23; product office PO-60) — Repository: Adam created the repository with the bootstrapper (template v2.11.0, C# pack; setup PR #1 merged 2026-11-23). Open: the pointer in the product office's `PROJECTS.md` changes and its `projects/sl23-cs-reader/` folder goes (the files are in: #2, and the design in #3). The first cut runs inside PO-60's `NOW` slot and takes no sixth (Adam, 2026-11-23 22:45).
+- **[DONE] CS23-2** (Adam, 2026-11-23; done 2026-11-24; product office PO-60) — Repository: Adam created the repository with the bootstrapper (template v2.11.0, C# pack; setup PR #1 merged 2026-11-23). The project's files moved in (#2, and the design as `docs/SPEC.md` in #3), and the product office's `PROJECTS.md` points here (product office #1164). The first cut runs inside PO-60's `NOW` slot and takes no sixth (Adam, 2026-11-23 22:45).
+- **[NOW] CS23-3** (design section 8) — `THIRD-PARTY-NOTICES.md`: L (opensounder/python-sllib, `f54a27c`, MIT) and S (KennethTM/sonarlight, `f8fbb79`, MIT) as "learn from (format facts)", with version and licence; K (kmpm/node-sl2format) as not used. Done when the file is in the repository and the template's notices rule is met. Docs only, no test.
+- **[NEXT] CS23-4** — Skeleton: rename the starter projects (`src/Example`, `src/Example.App`, `tests/Example.Tests`) to the analyser's (library, command-line shell, tests); the solution builds and the CI job `build` is green. First failing test: the library's one public entry point is asked for by the new test project and does not exist yet.
+- **[NEXT] CS23-5** — File header and frame record (design 6.2, 7.1): parse the 8-byte file header (format code 1/2/3; SLG and other values reported as such and not read further; files under 8 bytes hold no frames); the frame record type of 7.1 with absent fields never guessed.
+- **[NEXT] CS23-6** — SL2 frame reader (design 6.3 checks 1 to 3, 6.4): one frame at a time from a stream, 64-bit positions, the chain breaks on a truncated tail, check 1 or check 2 failing (position and bytes left reported), check 3 is a finding only; bounded memory, echo bytes skipped.
+- **[NEXT] CS23-7** — SL3 frame reader (design 6.3, 6.5): header size derived as frame size minus echo size (168, 184, 128 seen; anything else a finding); 128-byte frames of channels 7 and 8 give the reduced record; previous frame offsets 128 to 151 on 168/184 headers.
+- **[NEXT] CS23-8** — Inventory tallies (design 6.3 checks 4 to 9, 7.2): per file and channel counts, first failing positions (capped, with the number left out), frame index gaps, range-limit pairs (capped), frame versions, both readings of the time field.
+- **[NEXT] CS23-9** — Inventory text report with the privacy default (design 4, 7.2): counts and structure only; no position, depth, clock time, file name or path by default; the option adds them.
+- **[NEXT] CS23-10** — Inventory JSON report (design 4, 7.2): the same content as the text report.
+- **[NEXT] CS23-11** — Command-line shell (design 4): `inventory`, one or more files or a folder (the `.sl2` and `.sl3` files directly in it), progress on standard error for large files, usage errors stop at once, an unreadable path is reported while the rest is processed, exit codes as design 4.
+- **[LATER] CS23-12** — Expected figures on the public sonarlight example files (design 7.2, 9): 10,304 frames (SL2); 10,250 frames (SL3: 5,124 with a 128-byte header, 5,126 with 168). Waits for Adam's yes to using a small excerpt of those files as test data (copy mode, with sonarlight's licence text carried).
 
 ---
 
