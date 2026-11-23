@@ -43,7 +43,6 @@ None.
 ### When you have time
 
 - Confirm the wording of the goal (README "Purpose and goal", `memory/project.md`, the Phase 1 goal below), which is Clead's and not yet confirmed. Clead recommends accepting it as written. Detail: Phase 1 goal below.
-- Say whether a small excerpt of the two public sonarlight example files (one SL2, one SL3, MIT, licence text carried) may be copied in as test data, so that [CS23-12](https://github.com/factoincognito/sl23-cs-reader/blob/main/docs/BACKLOG.md) can check the expected frame counts (design sections 8 and 9). Clead recommends yes; without it the counts are not checked on real files. Detail: CS23-12 below.
 
 ### Later
 
@@ -68,7 +67,7 @@ None.
 - **[NEXT] CS23-9** — Inventory text report with the privacy default (design 4, 7.2): counts and structure only; no position, depth, clock time, file name or path by default; the option adds them.
 - **[NEXT] CS23-10** — Inventory JSON report (design 4, 7.2): the same content as the text report.
 - **[NEXT] CS23-11** — Command-line shell (design 4): `inventory`, one or more files or a folder (the `.sl2` and `.sl3` files directly in it), progress on standard error for large files, usage errors stop at once, an unreadable path is reported while the rest is processed, exit codes as design 4.
-- **[LATER] CS23-12** — Expected figures on the public sonarlight example files (design 7.2, 9): 10,304 frames (SL2); 10,250 frames (SL3: 5,124 with a 128-byte header, 5,126 with 168). Waits for Adam's yes to using a small excerpt of those files as test data (copy mode, with sonarlight's licence text carried).
+- **[NEXT] CS23-12** — Expected figures on the public sonarlight example files (design 7.2, 9): 10,304 frames (SL2); 10,250 frames (SL3: 5,124 with a 128-byte header, 5,126 with 168). Adam said yes to using a small excerpt of those files as test data (2026-11-24 00:23; copy mode, with sonarlight's licence text carried; its notice goes into `THIRD-PARTY-NOTICES.md`, CS23-3).
 
 ---
 
