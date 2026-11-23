@@ -20,7 +20,7 @@ Last update: 2026-11-24
 Build, not started: the design is approved (Adam, 2026-11-23 23:23) and is the specification, [`docs/SPEC.md`](https://github.com/factoincognito/sl23-cs-reader/blob/main/docs/SPEC.md).
 
 ## Current focus
-CS23-3, the third-party notices; then the first cut's build items CS23-4 to CS23-11, in the order of the backlog.
+CS23-3, the third-party notices (the licence check on the two source commits is pending), and CS23-5, the file header and frame record.
 
 ## Next step
 Clead builds the first cut's items (record inventory and file health) from [`docs/BACKLOG.md`](https://github.com/factoincognito/sl23-cs-reader/blob/main/docs/BACKLOG.md) test first, one PR per item, Crog reviewing. The report to the product owner is due when the first build PR has merged.
