@@ -14,6 +14,10 @@ Division: recorded in the product office's `DECISIONS.md`, row of 2026-11-23 (Ad
 
 The approved design is [`docs/SPEC.md`](docs/SPEC.md), moved here unchanged from the product office. Its citations of `RULES.md`, `DECISIONS.md`, `policies/` and `projects/` name the product office's files as of 2026-11-23; its `RULES.md § n` citations are to the product office's `RULES.md`, not to this repository's.
 
+## Licence
+
+The project's own code is under the PolyForm Noncommercial License 1.0.0 (`LICENSE`); the files the template ships keep the notice in `licenses/NOTICE`, and third-party files keep their own licences (`THIRD-PARTY-NOTICES.md`).
+
 ## About this README
 
 A project run with the Clead + Crog workflow. The product owner,
