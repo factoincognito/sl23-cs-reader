@@ -53,6 +53,11 @@ public static class InventoryTextReport
         "depth lies between the range limits",
     ];
 
+    /// <summary>Gets the name of a health check of design section 6.3.</summary>
+    /// <param name="number">The check number, 1 to 9.</param>
+    /// <returns>The name, as the reports write it.</returns>
+    internal static string CheckName(int number) => CheckNames[number];
+
     /// <summary>Writes the report: numbers in the invariant culture, one line per fact.</summary>
     /// <param name="output">Where the report goes.</param>
     /// <param name="files">The files, in the order given.</param>

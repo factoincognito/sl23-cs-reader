@@ -155,6 +155,31 @@ public class InventoryJsonReportTests
         Assert.Equal(13 * 4, checks[6].GetProperty("countedApart").GetInt64());
     }
 
+    [Fact]
+    public void AGapInTheFrameIndexIsCountedAsAnIndexGap()
+    {
+        var inventory = Inventory(
+            null,
+            608,
+            Frame(8) with { FrameIndex = 1 },
+            Frame(208) with { FrameIndex = 2 },
+            Frame(408) with { FrameIndex = 9 });
+
+        var channel = First(new FileReport("f", inventory)).GetProperty("channels")[0];
+
+        Assert.Equal(1, channel.GetProperty("indexGaps").GetInt64());
+        Assert.Equal(9u, channel.GetProperty("lastFrameIndex").GetUInt32());
+    }
+
+    [Fact]
+    public void TheTextIsNotEscapedMoreThanJsonNeeds()
+    {
+        var text = Text(new ReportOptions(true), new FileReport("\u00e5\u00e4\u00f6.sl2", Sample()));
+
+        Assert.Contains("\"offset field is the frame's position\"", text, StringComparison.Ordinal);
+        Assert.Contains("\"name\": \"\u00e5\u00e4\u00f6.sl2\"", text, StringComparison.Ordinal);
+    }
+
     [Theory]
     [InlineData(ChainBreakReason.TruncatedTail, "truncatedTail")]
     [InlineData(ChainBreakReason.OffsetMismatch, "offsetMismatch")]
@@ -241,7 +266,8 @@ public class InventoryJsonReportTests
         Assert.DoesNotContain("6.09", text);
         Assert.DoesNotContain("30.48", text);
         Assert.DoesNotContain("\"name\": \"/", text);
-        Assert.DoesNotContain("depth", text, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("depthMinMetres", text);
+        Assert.DoesNotContain("depthMaxMetres", text);
         Assert.DoesNotContain("rangeLimitPairs", text);
         Assert.False(Root(new ReportOptions(), new FileReport(SecretPath, Sample())).GetProperty("detailsIncluded").GetBoolean());
     }
