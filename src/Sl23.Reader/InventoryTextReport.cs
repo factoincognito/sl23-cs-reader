@@ -86,6 +86,8 @@ public static class InventoryTextReport
 
     private static string Count(long n, string one, string many) => Inv($"{n} {(n == 1 ? one : many)}");
 
+    private static string Bytes(long? n) => n is { } size ? Count(size, "byte", "bytes") : Inv($"{n} bytes");
+
     private static string Untracked(long frames, string what) =>
         frames > 0 ? Inv($", {Count(frames, "frame", "frames")} with other {what} not tracked") : string.Empty;
 
@@ -104,7 +106,7 @@ public static class InventoryTextReport
         var header = inventory.Header;
         output.WriteLine(Inv($"  File header: format {FormatName(header.Format)} (code {header.FormatCode}), words {header.Word2} {header.Word4} {header.Word6}"));
         output.WriteLine(Inv($"  Frames: {inventory.FrameCount}"));
-        output.WriteLine("  Layouts: " + Join(inventory.Layouts, size => Inv($"{size} bytes")) + Untracked(inventory.FramesWithUntrackedLayouts, "sizes"));
+        output.WriteLine("  Layouts: " + Join(inventory.Layouts, size => Bytes(size)) + Untracked(inventory.FramesWithUntrackedLayouts, "sizes"));
         output.WriteLine("  Chain: " + Chain(inventory.Break));
         output.WriteLine("  Time counter: " + Time(inventory.Time));
         output.WriteLine("  Health checks (passed / failed):");
@@ -124,7 +126,7 @@ public static class InventoryTextReport
         FileProblem.NotFound => "could not be read: file not found",
         FileProblem.AccessDenied => "could not be read: access denied",
         FileProblem.ReadFailed => "could not be read: read error",
-        FileProblem.TooShortForHeader => Inv($"{file.Size} bytes, not read: shorter than the 8-byte file header"),
+        FileProblem.TooShortForHeader => Bytes(file.Size) + ", not read: shorter than the 8-byte file header",
         FileProblem.FormatNotRead when file.Header is { } header =>
             Inv($"{file.Size} bytes, not read: file header format code {header.FormatCode} ({(header.Format == FileFormat.Slg ? "SLG" : "unknown")}), not read further"),
         _ => "could not be read",
@@ -139,7 +141,7 @@ public static class InventoryTextReport
     };
 
     private static string Join<T>(IReadOnlyDictionary<T, long> counts, Func<T, string> label) where T : notnull =>
-        string.Join(", ", counts.Select(c => Inv($"{label(c.Key)} x {c.Value}")));
+        counts.Count == 0 ? "none" : string.Join(", ", counts.Select(c => Inv($"{label(c.Key)} x {c.Value}")));
 
     private static string Chain(ChainBreak? chainBreak)
     {
@@ -187,7 +189,7 @@ public static class InventoryTextReport
         output.WriteLine("    Frame index: " + (channel.FirstFrameIndex is { } first && channel.LastFrameIndex is { } last
             ? Inv($"first {first}, last {last}, {Count(channel.Checks[6].Failed, "gap", "gaps")}")
             : "none"));
-        output.WriteLine("    Header sizes: " + Join(channel.HeaderSizes, size => Inv($"{size} bytes")) + Untracked(channel.FramesWithUntrackedHeaderSizes, "sizes"));
+        output.WriteLine("    Header sizes: " + Join(channel.HeaderSizes, size => Bytes(size)) + Untracked(channel.FramesWithUntrackedHeaderSizes, "sizes"));
         if (channel.FrameVersions.Count > 0)
         {
             output.WriteLine("    Frame versions: " + Join(channel.FrameVersions, version => Inv($"{version}")) + Untracked(channel.FramesWithUntrackedFrameVersions, "versions"));
