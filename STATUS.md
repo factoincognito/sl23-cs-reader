@@ -20,11 +20,10 @@ Last update: 2026-11-24
 Build: the first cut's library and command are merged ([#10](https://github.com/factoincognito/sl23-cs-reader/pull/10) to [#17](https://github.com/factoincognito/sl23-cs-reader/pull/17)): the SL2 and SL3 readers, the inventory with the nine health checks, the text and JSON reports and `sl23-cs-reader inventory`. The design is approved (Adam, 2026-11-23 23:23) and is the specification, [`docs/SPEC.md`](https://github.com/factoincognito/sl23-cs-reader/blob/main/docs/SPEC.md).
 
 ## Current focus
-[CS23-3](https://github.com/factoincognito/sl23-cs-reader/blob/main/docs/BACKLOG.md), the third-party notices, and [CS23-12](https://github.com/factoincognito/sl23-cs-reader/blob/main/docs/BACKLOG.md), the expected figures on the public sonarlight examples; both wait on the blockers below. [CS23-13](https://github.com/factoincognito/sl23-cs-reader/blob/main/docs/BACKLOG.md) follows up the review notes.
+[CS23-12](https://github.com/factoincognito/sl23-cs-reader/blob/main/docs/BACKLOG.md), the expected figures on the public sonarlight examples. [CS23-13](https://github.com/factoincognito/sl23-cs-reader/blob/main/docs/BACKLOG.md) follows up the review notes.
 
 ## Next step
-A fresh session writes `THIRD-PARTY-NOTICES.md` ([CS23-3](https://github.com/factoincognito/sl23-cs-reader/blob/main/docs/BACKLOG.md)) and then [CS23-12](https://github.com/factoincognito/sl23-cs-reader/blob/main/docs/BACKLOG.md) test first, as soon as the blockers are answered; [CS23-13](https://github.com/factoincognito/sl23-cs-reader/blob/main/docs/BACKLOG.md) can be taken in the meantime, split by area. The report to the product owner for the first build PR was made on 2026-11-24 00:30.
+[CS23-12](https://github.com/factoincognito/sl23-cs-reader/blob/main/docs/BACKLOG.md), test first, on the two example files Adam gave on 2026-11-24; then [CS23-13](https://github.com/factoincognito/sl23-cs-reader/blob/main/docs/BACKLOG.md), split by area.
 
 ## Blockers
-- Adam: the licence of [opensounder/python-sllib](https://github.com/opensounder/python-sllib) at `f54a27c` is unchecked, and the session's access to that repository was refused ([CS23-3](https://github.com/factoincognito/sl23-cs-reader/blob/main/docs/BACKLOG.md)). Clead's recommendation and the other open questions are in the product office's "Waiting for Adam".
-- Adam: [CS23-12](https://github.com/factoincognito/sl23-cs-reader/blob/main/docs/BACKLOG.md) needs the bytes of a small excerpt of the sonarlight example files, which the session could not read (Adam approved the excerpt, 2026-11-24 00:23).
+None.

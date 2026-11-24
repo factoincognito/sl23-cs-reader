@@ -10,6 +10,8 @@ All notable changes to sl23-cs-reader are documented here.
 - 2026-11-24: the starter projects replaced by the analyser's library, command-line shell and tests (#5).
 - 2026-11-24: the file header and frame record (#8), the SL2 frame reader (#10), the SL3 frame reader (#12) and the inventory tallies with the nine health checks (#14), the inventory text report (#15), the inventory JSON report (#16) and the inventory command (#17) added to the library.
 - 2026-11-24: the changelog lines for #4 to #7 added (#9); Adam's decision that sonar information is kept in fomo-f recorded, and the CS23-7 note on the sonarlight check turned into a pointer to fomo-f (#11).
+- 2026-11-24: the follow-ups from the reviews of #15 to #17 recorded as CS23-13 (#18); the status and handover after the first cut written (#19).
+- 2026-11-24: the third-party notices added, `THIRD-PARTY-NOTICES.md` (#20).
 
 ## Project created
 
