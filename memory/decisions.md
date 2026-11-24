@@ -14,6 +14,7 @@ the project's own rules in `RULES.md`.
 | 2026-11-24 | A small excerpt of the two public sonarlight example files (one SL2, one SL3, MIT) may be copied into the repository as test data, with sonarlight's licence text carried. Adam's own files are never committed. | Adam, in chat, 00:23, "yes", to Clead's question (design section 9). |
 | 2026-11-24 | Sonar-related information is kept in fomo-f, not in this repository: this project is only a proof of concept of building C# projects. The sonarlight 0.1.8 result moved there; the CS23-3 licence line and design section 6.5 stay. | Adam, in chat, 00:36, and "apyr" to Clead's recommendation of 00:36. |
 | 2026-11-24 | The repository's own licence is PolyForm Noncommercial 1.0.0, with the required-notice line "Copyright Adam Smolowicz", in a `LICENSE` file at the root (CS23-17). It covers the project's own code only; third-party files keep their licences. | Adam, in chat, 10:05, "apyr" to Clead's recommendation of 10:03. |
+| 2026-11-24 | The analyser's intended use, in the third-party policy's categories, is internal tooling; a session asks Adam again before the tool ships or before non-permissive third-party material comes in. `THIRD-PARTY-NOTICES.md` is changed to say so (CS23-17). | Adam, in chat, 10:11, "yes internal tooling", to Clead's recommendation of 09:50. |
 
 ## Open questions
 
