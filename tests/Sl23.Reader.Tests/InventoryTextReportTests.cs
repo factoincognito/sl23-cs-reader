@@ -277,6 +277,39 @@ public class InventoryTextReportTests
     }
 
     [Fact]
+    public void ASizeOfOneByteIsWrittenInTheSingular()
+    {
+        var text = Default(
+            new FileReport("a", null, FileProblem.TooShortForHeader, Size: 1),
+            new FileReport("b", Inventory(null, 9, Frame(8, 0, 1, 1))));
+
+        Assert.Contains("File 1 of 2: 1 byte, not read: shorter than the 8-byte file header\n", text);
+        Assert.Contains("  Layouts: 1 byte x 1\n", text);
+        Assert.Contains("    Header sizes: 1 byte x 1\n", text);
+    }
+
+    [Fact]
+    public void AFileWithoutFramesHasNoLayoutsAndSaysSo()
+    {
+        var text = Default(new FileReport("f", Inventory(null, 8)));
+
+        Assert.Contains("  Layouts: none\n", text);
+    }
+
+    [Fact]
+    public void EveryLineEndsWithTheLineEndingOfTheWriter()
+    {
+        using var writer = new StringWriter { NewLine = "\r\n" };
+
+        InventoryTextReport.Write(writer, [new FileReport("f", Sample())], new ReportOptions());
+
+        var text = writer.ToString();
+        Assert.EndsWith("\r\n", text, StringComparison.Ordinal);
+        Assert.DoesNotContain('\n', text.Replace("\r\n", string.Empty, StringComparison.Ordinal));
+        Assert.DoesNotContain('\r', text.Replace("\r\n", string.Empty, StringComparison.Ordinal));
+    }
+
+    [Fact]
     public void AFileWithNeitherAnInventoryNorAReasonIsReportedAsNotRead()
     {
         var text = Default(
