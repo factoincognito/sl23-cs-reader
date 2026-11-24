@@ -43,7 +43,6 @@ None.
 ### When you have time
 
 - Try [CS23-18](https://github.com/factoincognito/sl23-cs-reader/blob/main/docs/BACKLOG.md): open the folder in VS Code on Windows, open Run and Debug, start "Inventory: ask for the folder to read", enter a folder, and tell a session whether it built and the report appeared. Clead recommends doing it after the PR has merged.
-- Confirm the wording of the goal (README "Purpose and goal", `memory/project.md`, the Phase 1 goal below), which is Clead's and not yet confirmed. Clead recommends accepting it as written. Detail: Phase 1 goal below.
 
 ### Later
 
@@ -55,7 +54,7 @@ None.
 
 **Specification:** the approved design (status `approved`, Adam, 2026-11-23 23:23) is `docs/SPEC.md`, moved unchanged from the product office (`projects/sl23-cs-reader/design.md` at commit 0fda8139f5196e937ae63ca595c83311bf7f5f40). Its citations of `RULES.md`, `DECISIONS.md`, `policies/` and `projects/` name the product office's files as of 2026-11-23.
 
-**Goal:** the `inventory` analysis of the approved design (its sections 3, 6 and 7) reads SL2 and SL3 files and reports what is in them and where they break. It is done when the report of design section 7.2 is produced for both formats and the expected figures for the public example files hold. (Clead's wording, not yet confirmed by Adam.)
+**Goal:** the `inventory` analysis of the approved design (its sections 3, 6 and 7) reads SL2 and SL3 files and reports what is in them and where they break. It is done when the report of design section 7.2 is produced for both formats and the expected figures for the public example files hold. (Clead's wording, confirmed by Adam, 2026-11-24.)
 
 - **[DONE] CS23-1** (Adam, 2026-11-23; done 2026-11-23 23:23; product office PO-60) — Design: Adam approved the high-level design and data format ("the design is approved"); Clead recorded the approval line and set its status to `approved`.
 - **[DONE] CS23-2** (Adam, 2026-11-23; done 2026-11-24; product office PO-60) — Repository: Adam created the repository with the bootstrapper (template v2.11.0, C# pack; setup PR #1 merged 2026-11-23). The project's files moved in (#2, and the design as `docs/SPEC.md` in #3), and the product office's `PROJECTS.md` points here (product office #1164). The first cut runs inside PO-60's `NOW` slot and takes no sixth (Adam, 2026-11-23 22:45).
