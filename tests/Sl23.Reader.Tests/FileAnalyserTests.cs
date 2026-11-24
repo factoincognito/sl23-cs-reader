@@ -146,6 +146,29 @@ public sealed class FileAnalyserTests : IDisposable
     }
 
     [Fact]
+    public void AFailureOfAnotherKindInsideTheReadingIsReadFailedNotNotFound()
+    {
+        using var stream = new FailingStream(Sl3File.Build(new Sl3Frame(), new Sl3Frame()), failAtPosition: 100, new NotSupportedException());
+
+        var report = FileAnalyser.Analyse(stream, "x.sl3");
+
+        Assert.Equal(FileProblem.ReadFailed, report.Problem);
+    }
+
+    [Fact]
+    public void AFileThatAnotherReaderHasOpenCanStillBeRead()
+    {
+        var path = Path.Combine(folder.FullName, "shared.sl3");
+        File.WriteAllBytes(path, Sl3File.Build(new Sl3Frame()));
+        using var other = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.Read);
+
+        var report = FileAnalyser.Analyse(path);
+
+        Assert.Equal(FileProblem.None, report.Problem);
+        Assert.Equal(1, report.Inventory!.FrameCount);
+    }
+
+    [Fact]
     public void AStreamThatIsRefusedMidwayIsAccessDenied()
     {
         using var stream = new FailingStream(Sl3File.Build(new Sl3Frame()), failAtPosition: 0, new UnauthorizedAccessException());

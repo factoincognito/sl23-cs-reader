@@ -267,6 +267,17 @@ public sealed partial class InventoryCommandTests : IDisposable
     }
 
     [Fact]
+    public void ProgressStartsAtTheThresholdSizeExactly()
+    {
+        var path = Path.Combine(folder.FullName, "edge.sl2");
+        File.WriteAllBytes(path, Sl2File.Build([.. Enumerable.Range(0, 24).Select(i => new Sl2Frame { FrameIndex = (uint)i, PreviousFrameSize = (ushort)(i == 0 ? 0 : 65535), Echo = new byte[65535 - 144] })]));
+        var size = new FileInfo(path).Length;
+
+        Assert.NotEqual(string.Empty, Run(size, path).Error);
+        Assert.Equal(string.Empty, Run(size + 1, path).Error);
+    }
+
+    [Fact]
     public void ARunWithoutArgumentsOrWritersIsRefused()
     {
         using var writer = new StringWriter(CultureInfo.InvariantCulture);
