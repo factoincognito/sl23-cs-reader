@@ -15,6 +15,8 @@ the project's own rules in `RULES.md`.
 | 2026-11-24 | Sonar-related information is kept in fomo-f, not in this repository: this project is only a proof of concept of building C# projects. The sonarlight 0.1.8 result moved there; the CS23-3 licence line and design section 6.5 stay. | Adam, in chat, 00:36, and "apyr" to Clead's recommendation of 00:36. |
 | 2026-11-24 | The repository's own licence is PolyForm Noncommercial 1.0.0, with the required-notice line "Copyright Adam Smolowicz", in a `LICENSE` file at the root (CS23-17). It covers the project's own code only; third-party files keep their licences. | Adam, in chat, 10:05, "apyr" to Clead's recommendation of 10:03. |
 | 2026-11-24 | The analyser's intended use, in the third-party policy's categories, is internal tooling; a session asks Adam again before the tool ships or before non-permissive third-party material comes in. `THIRD-PARTY-NOTICES.md` is changed to say so (CS23-17). | Adam, in chat, 10:11, "yes internal tooling", to Clead's recommendation of 09:50. |
+| 2026-11-24 | The JSON report gets a schema version field, `"schemaVersion": 1` (CS23-20), before anything reads the JSON. | Adam, in chat, 15:48, "apyr" to Clead's recommendation in "Waiting for the product owner". |
+| 2026-11-24 | Health check 6 is not changed for channels 10 and 11 of the public SL2 example until it is known why the frame index occurs twice there (CS23-15). | Adam, in chat, 15:48, "apyr" to Clead's recommendation in "Waiting for the product owner". |
 
 ## Open questions
 
