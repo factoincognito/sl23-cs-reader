@@ -77,6 +77,20 @@ public class InventoryJsonReportTests
         Assert.False(root.GetProperty("detailsIncluded").GetBoolean());
     }
 
+    [Theory]
+    [InlineData(false)]
+    [InlineData(true)]
+    public void TheSchemaVersionIsTheFirstPropertyAndIsOne(bool includeDetails)
+    {
+        var root = Root(new ReportOptions(includeDetails), new FileReport(SecretPath, Sample()));
+
+        var first = root.EnumerateObject().First();
+        Assert.Equal("schemaVersion", first.Name);
+        Assert.Equal(JsonValueKind.Number, first.Value.ValueKind);
+        Assert.Equal(1, first.Value.GetInt32());
+        Assert.Equal(1, root.EnumerateObject().Count(property => property.Name == "schemaVersion"));
+    }
+
     [Fact]
     public void WritesTheFileLevelFacts()
     {
