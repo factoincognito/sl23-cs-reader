@@ -9,7 +9,7 @@
 - Tell Adam something about his own SL2/SL3 files that he did not know, and that cannot be had by passing the file on to Claude (the second purpose).
 
 **Definition of done for this phase:**
-Phase 1, the first cut: the `inventory` analysis (record inventory and file health) reads SL2 and SL3 files and reports as the approved design describes; its expected figures for the public example files hold. (Clead's wording, not yet confirmed by Adam.)
+Phase 1, the first cut: the `inventory` analysis (record inventory and file health) reads SL2 and SL3 files and reports as the approved design describes; its expected figures for the public example files hold. (Clead's wording, confirmed by Adam, 2026-11-24.)
 
 ## Migration source
 N/A — new project; no code is migrated. The SL2/SL3 format facts come from the format document of Adam's repository `fomo-t/fomo-f` and from two MIT-licensed projects, learned from and not copied.

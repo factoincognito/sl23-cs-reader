@@ -23,7 +23,7 @@ Build: the first cut's library and command are merged ([#10](https://github.com/
 Adam's test of the VS Code entry ([CS23-18](https://github.com/factoincognito/sl23-cs-reader/blob/main/docs/BACKLOG.md)) is open. No work is under way.
 
 ## Next step
-Clead's proposal, not decided: Adam runs `sl23-cs-reader inventory` on his own recordings and gives the default report to a session, since the design leaves the next cut to be decided with the first report in hand ([`docs/SPEC.md`](https://github.com/factoincognito/sl23-cs-reader/blob/main/docs/SPEC.md), section 10, point 2). The follow-ups left over from the reviews are [CS23-19](https://github.com/factoincognito/sl23-cs-reader/blob/main/docs/BACKLOG.md) and need no decision.
+Adam ran `sl23-cs-reader inventory` on one of his own SL2 files from the command line on 2026-11-24 (all checks that apply passed) and gave the default JSON report to a session. The next cut is not decided: the design leaves it to be decided with the first report in hand ([`docs/SPEC.md`](https://github.com/factoincognito/sl23-cs-reader/blob/main/docs/SPEC.md), section 10, point 2). The follow-ups left over from the reviews are [CS23-19](https://github.com/factoincognito/sl23-cs-reader/blob/main/docs/BACKLOG.md) and need no decision.
 
 ## Blockers
 - Product Owner: [CS23-18](https://github.com/factoincognito/sl23-cs-reader/blob/main/docs/BACKLOG.md) is done only when Adam has run the entry in VS Code on Windows; the session had no VS Code and no Windows.
