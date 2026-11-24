@@ -1,0 +1,26 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Inventory: ask for the folder to read",
+      "type": "coreclr",
+      "request": "launch",
+      "preLaunchTask": "build",
+      "program": "${workspaceFolder}/src/Sl23.Reader.Cli/bin/Debug/net10.0/Sl23.Reader.Cli.dll",
+      "args": [
+        "inventory",
+        "${input:folder}"
+      ],
+      "cwd": "${workspaceFolder}",
+      "console": "integratedTerminal",
+      "stopAtEntry": false
+    }
+  ],
+  "inputs": [
+    {
+      "id": "folder",
+      "type": "promptString",
+      "description": "Folder with the .sl2 and .sl3 files to read (or the path of one file)"
+    }
+  ]
+}
