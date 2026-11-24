@@ -21,6 +21,10 @@ Adam Smolowicz, decides what gets built, Clead (Claude, Tech Owner) owns
 how, and Crog (Claude Code, Senior Developer) implements. Everything
 the agents need lives in this repo: `CLAUDE.md` is the entry point.
 
+This project was developed with the assistance of AI (Claude, by
+Anthropic); the extent varies by contribution, and commits made with it
+carry a Co-Authored-By trailer.
+
 ## Setup
 
 ### Prerequisites
