@@ -62,6 +62,52 @@ public sealed partial class InventoryCommandTests : IDisposable
     }
 
     [Fact]
+    public void AnUnknownOptionIsEchoedWithItsControlCharactersEscaped()
+    {
+        var (code, _, error) = Run("--bad\u001b[31m");
+
+        Assert.Equal(Program.UsageError, code);
+        Assert.Contains("Unknown option: --bad\\u001B[31m", error, StringComparison.Ordinal);
+        Assert.DoesNotContain('\u001b', error);
+    }
+
+    private static (int Code, string Output, string Error) RunWithListing(Func<string, IEnumerable<string>> enumerateFiles, params string[] args)
+    {
+        using var output = new StringWriter(CultureInfo.InvariantCulture);
+        using var error = new StringWriter(CultureInfo.InvariantCulture);
+        var code = InventoryCommand.Run(args, output, error, InventoryCommand.DefaultProgressThreshold, enumerateFiles);
+        return (code, output.ToString(), error.ToString());
+    }
+
+    [Theory]
+    [InlineData(true, "access denied")]
+    [InlineData(false, "read error")]
+    public void AFolderThatCannotBeListedIsReportedAndFailsTheRunAndTheOthersAreStillRead(bool accessDenied, string reason)
+    {
+        var path = Sl3Path("a.sl3", 1);
+
+        var (code, output, _) = RunWithListing(_ => throw (accessDenied ? new UnauthorizedAccessException() : new IOException()), path, folder.FullName);
+
+        Assert.Equal(Program.InputFailed, code);
+        Assert.Contains("File 2 of 2: could not be read: " + reason + "\n", output.ReplaceLineEndings("\n"), StringComparison.Ordinal);
+        Assert.Contains("File 1 of 2: ", output, StringComparison.Ordinal);
+        Assert.DoesNotContain("File 1 of 2: could not be read", output, StringComparison.Ordinal);
+    }
+
+    [Fact]
+    public void AFolderThatCannotBeListedKeepsItsPlaceAmongTheInputs()
+    {
+        var path = Sl3Path("a.sl3", 1);
+
+        var (_, first, _) = RunWithListing(_ => throw new UnauthorizedAccessException(), folder.FullName, path);
+        var (_, last, _) = RunWithListing(_ => throw new UnauthorizedAccessException(), path, folder.FullName);
+
+        Assert.Contains("File 1 of 2: could not be read: access denied", first.ReplaceLineEndings("\n"), StringComparison.Ordinal);
+        Assert.Contains("File 2 of 2:", first, StringComparison.Ordinal);
+        Assert.Contains("File 2 of 2: could not be read: access denied", last.ReplaceLineEndings("\n"), StringComparison.Ordinal);
+    }
+
+    [Fact]
     public void HelpWritesTheUsageToStandardOutputAndSucceeds()
     {
         var (code, output, error) = Run("--help");
@@ -278,6 +324,25 @@ public sealed partial class InventoryCommandTests : IDisposable
         Assert.Equal(percents.Distinct().Count(), percents.Count);
         Assert.All(percents, percent => Assert.InRange(percent, 1, 100));
         Assert.DoesNotContain("secret", error, StringComparison.Ordinal);
+    }
+
+    [Fact]
+    public void ProgressNumbersCountAFailedFolderAndLeaveOutAFolderWithNoFiles()
+    {
+        var path = Path.Combine(folder.FullName, "big.sl2");
+        File.WriteAllBytes(path, Sl2File.Build([.. Enumerable.Range(0, 24).Select(i => new Sl2Frame { FrameIndex = (uint)i, PreviousFrameSize = (ushort)(i == 0 ? 0 : 65535), Echo = new byte[65535 - 144] })]));
+        var empty = Directory.CreateDirectory(Path.Combine(folder.FullName, "empty")).FullName;
+        using var output = new StringWriter(CultureInfo.InvariantCulture);
+        using var error = new StringWriter(CultureInfo.InvariantCulture);
+
+        var code = InventoryCommand.Run([folder.FullName, empty, path], output, error, 1_000_000, dir => dir == empty ? [] : throw new UnauthorizedAccessException());
+
+        Assert.Equal(Program.InputFailed, code);
+        Assert.Contains("A folder holds no .sl2 or .sl3 files.", error.ToString(), StringComparison.Ordinal);
+        var lines = error.ToString().Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries).Where(line => line.StartsWith("File ", StringComparison.Ordinal)).ToList();
+        Assert.NotEmpty(lines);
+        Assert.All(lines, line => Assert.StartsWith("File 2 of 2: ", line, StringComparison.Ordinal));
+        Assert.Contains("File 1 of 2: could not be read: access denied", output.ToString().ReplaceLineEndings("\n"), StringComparison.Ordinal);
     }
 
     [Fact]
