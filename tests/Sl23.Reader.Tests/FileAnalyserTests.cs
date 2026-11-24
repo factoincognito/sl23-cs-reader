@@ -108,6 +108,25 @@ public sealed class FileAnalyserTests : IDisposable
     }
 
     [Fact]
+    public void AReadOnlyFileCanBeRead()
+    {
+        var path = Path.Combine(folder.FullName, "readonly.sl3");
+        File.WriteAllBytes(path, Sl3File.Build(new Sl3Frame()));
+        File.SetAttributes(path, FileAttributes.ReadOnly);
+        try
+        {
+            var report = FileAnalyser.Analyse(path);
+
+            Assert.Equal(FileProblem.None, report.Problem);
+            Assert.Equal(1, report.Inventory!.FrameCount);
+        }
+        finally
+        {
+            File.SetAttributes(path, FileAttributes.Normal);
+        }
+    }
+
+    [Fact]
     public void AMissingFileIsNotFound()
     {
         var report = FileAnalyser.Analyse(Path.Combine(folder.FullName, "missing.sl2"));

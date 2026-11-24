@@ -151,11 +151,7 @@ public static class InventoryCommand
         {
             size = new FileInfo(path).Length;
         }
-        catch (IOException)
-        {
-            return null;
-        }
-        catch (UnauthorizedAccessException)
+        catch (Exception exception) when (exception is IOException or UnauthorizedAccessException or ArgumentException or NotSupportedException)
         {
             return null;
         }

@@ -226,6 +226,20 @@ public sealed partial class InventoryCommandTests : IDisposable
     }
 
     [Fact]
+    public void AnEmptyPathIsReportedAsNotFoundAndTheOthersAreStillRead()
+    {
+        var good = Sl3Path("good.sl3", 1);
+
+        var (code, output, error) = Run(1, "--json", string.Empty, good);
+
+        Assert.Equal(Program.InputFailed, code);
+        var files = Parse(output).GetProperty("files");
+        Assert.Equal("notFound", files[0].GetProperty("problem").GetString());
+        Assert.Equal(1, files[1].GetProperty("frames").GetInt32());
+        Assert.DoesNotContain("Exception", error, StringComparison.Ordinal);
+    }
+
+    [Fact]
     public void AfterTwoDashesEverythingIsAPath()
     {
         var (code, output, _) = Run("--json", "--", "--json");
