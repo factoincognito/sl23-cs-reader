@@ -22,6 +22,7 @@ All notable changes to sl23-cs-reader are documented here.
 - 2026-11-24: follow-ups of the review notes of #15 to #17 (CS23-13): the JSON report's handling of an unpaired surrogate in a file name pinned by a test and the escaping noted (#33); `1 byte` and `Layouts: none` in the text report (#34); the shell keeps the input order, escapes control characters in what it echoes and tests a folder that cannot be listed (#35). The check 6 finding on SL2 channels 10 and 11 recorded in fomo-f (CS23-15).
 - 2026-11-24: the JSON report gets a schema version field, `"schemaVersion": 1` as its first property (CS23-20, #38); this line added (#39).
 - 2026-11-24: the decision on the shell's choices and on check 9 for SL2 channels 10 and 11 recorded, and the goal wording marked as confirmed (#40).
+- 2026-11-24: Adam's first run of the `inventory` command on one of his own SL2 files recorded in `STATUS.md`, and the missed "not yet confirmed" mark of the Phase 1 definition in `memory/project.md` removed (#41).
 
 ## Project created
 
