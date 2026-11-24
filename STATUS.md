@@ -20,10 +20,10 @@ Last update: 2026-11-24
 Build: the first cut's library and command are merged ([#10](https://github.com/factoincognito/sl23-cs-reader/pull/10) to [#17](https://github.com/factoincognito/sl23-cs-reader/pull/17)): the SL2 and SL3 readers, the inventory with the nine health checks, the text and JSON reports and `sl23-cs-reader inventory`. On the two whole public sonarlight example files it gives the design's expected figures ([#21](https://github.com/factoincognito/sl23-cs-reader/pull/21)), so both conditions of the Phase 1 goal in the [backlog](https://github.com/factoincognito/sl23-cs-reader/blob/main/docs/BACKLOG.md) are met; the goal's wording is confirmed (Adam, 2026-11-24, 16:18). The design is approved (Adam, 2026-11-23 23:23) and is the specification, [`docs/SPEC.md`](https://github.com/factoincognito/sl23-cs-reader/blob/main/docs/SPEC.md).
 
 ## Current focus
-Adam's test of the VS Code entry ([CS23-18](https://github.com/factoincognito/sl23-cs-reader/blob/main/docs/BACKLOG.md)) ran on 2026-11-24 and is open only on the operating system. No work is under way.
+No work is under way. The next cut waits for Adam's decision (see Next step).
 
 ## Next step
 Adam ran `sl23-cs-reader inventory` on one of his own SL2 files from the command line on 2026-11-24 and gave the default JSON report to a session; he also ran it on one of his own SL3 files as a debug run in VS Code. Both completed successfully. The next cut is not decided: the design leaves it to be decided with the first report in hand ([`docs/SPEC.md`](https://github.com/factoincognito/sl23-cs-reader/blob/main/docs/SPEC.md), section 10, point 2). The follow-ups left over from the reviews are [CS23-19](https://github.com/factoincognito/sl23-cs-reader/blob/main/docs/BACKLOG.md) and need no decision.
 
 ## Blockers
-- Product Owner: [CS23-18](https://github.com/factoincognito/sl23-cs-reader/blob/main/docs/BACKLOG.md) is done only when the VS Code entry has run on Windows. Adam ran it on 2026-11-24 and it completed successfully, but he has not said whether that PC is Windows.
+None.

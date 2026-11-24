@@ -24,6 +24,7 @@ All notable changes to sl23-cs-reader are documented here.
 - 2026-11-24: the decision on the shell's choices and on check 9 for SL2 channels 10 and 11 recorded, and the goal wording marked as confirmed (#40).
 - 2026-11-24: Adam's first run of the `inventory` command on one of his own SL2 files recorded in `STATUS.md`, and the missed "not yet confirmed" mark of the Phase 1 definition in `memory/project.md` removed (#41).
 - 2026-11-24: Adam's runs of the analyser on his own SL2 and SL3 files, the second a debug run from VS Code, recorded as completed successfully; CS23-18 now waits only for the operating system (#42).
+- 2026-11-24: CS23-18 done: Adam ran the VS Code entry on his Windows 11 machine, and it built and ran (#43).
 
 ## Project created
 
