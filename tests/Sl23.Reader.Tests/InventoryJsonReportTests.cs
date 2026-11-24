@@ -226,6 +226,22 @@ public class InventoryJsonReportTests
     }
 
     [Fact]
+    public void FramesWithoutAValidPositionAreNotCountedAsHavingOne()
+    {
+        var frames = new[]
+        {
+            Frame(8) with { Flags = Units.PositionValidFlag, X = 1000, Y = 2000 },
+            Frame(208) with { Flags = 0, X = 1000, Y = 2000 },
+            Frame(408) with { Flags = Units.PositionValidFlag, X = 1000 },
+        };
+
+        var channel = First(new FileReport("f", Inventory(null, 608, frames))).GetProperty("channels")[0];
+
+        Assert.Equal(3, channel.GetProperty("frames").GetInt64());
+        Assert.Equal(1, channel.GetProperty("framesWithValidPosition").GetInt64());
+    }
+
+    [Fact]
     public void CapsAreReportedAsUntrackedCounts()
     {
         var total = InventoryBuilder.MaxRangeLimitPairs + 3;
