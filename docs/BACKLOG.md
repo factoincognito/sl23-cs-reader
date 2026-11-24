@@ -43,7 +43,6 @@ None.
 ### When you have time
 
 - Confirm the wording of the goal (README "Purpose and goal", `memory/project.md`, the Phase 1 goal below), which is Clead's and not yet confirmed. Clead recommends accepting it as written. Detail: Phase 1 goal below.
-- Decide the intended use of the analyser in the third-party policy's categories (commercial product, internal tooling, or personal or hobby). `THIRD-PARTY-NOTICES.md` assumes commercial product, the strictest, until you do. Clead recommends keeping commercial product: the project is Sonatory's, and the MIT and Apache-2.0 licences involved allow it, so nothing changes today. Detail: `THIRD-PARTY-NOTICES.md`, "Intended use".
 
 ### Later
 
@@ -83,8 +82,7 @@ None.
   - The two tests of the design's figures on the whole sonarlight examples never run in CI (CS23-12), so a later regression of those figures would not turn CI red. A CI step that fetches the two files at the pinned commit and checks their SHA-256 would close it, at the price of a 42 MB download and a network dependency in `build`.
   - `SonarlightExampleTests.ReadWholeExample`: a SHA-256 mismatch fails without naming the file; a value of `SL23_SONARLIGHT_EXAMPLES` that is only white space counts as set and fails with "folder does not hold".
   - The whole-file tests do not assert, as the excerpt test does, that the 128-byte headers are on channels 7 and 8 only.
-  - When Adam decides the intended-use category ("Waiting for the product owner"), `THIRD-PARTY-NOTICES.md` and that line are updated together.
-- **[NEXT] CS23-17** (Adam, 2026-11-24 10:05, "apyr", `memory/decisions.md`) — The repository's own licence: a `LICENSE` file at the root with the PolyForm Noncommercial 1.0.0 text (the template ships it as `licenses/PolyForm-Noncommercial-1.0.0.md`) and the line "Required Notice: Copyright Adam Smolowicz". It covers the project's own code only; the sonarlight excerpts and the other third-party files keep their licences (`THIRD-PARTY-NOTICES.md`). `licenses/NOTICE` stays, as the template's. The README says in one line which licence applies to what.
+- **[NEXT] CS23-17** (Adam, 2026-11-24 10:05, "apyr", `memory/decisions.md`) — The repository's own licence: a `LICENSE` file at the root with the PolyForm Noncommercial 1.0.0 text (the template ships it as `licenses/PolyForm-Noncommercial-1.0.0.md`) and the line "Required Notice: Copyright Adam Smolowicz". It covers the project's own code only; the sonarlight excerpts and the other third-party files keep their licences (`THIRD-PARTY-NOTICES.md`). `licenses/NOTICE` stays, as the template's. The README says in one line which licence applies to what. The same change updates `THIRD-PARTY-NOTICES.md`, section "Intended use": the category is internal tooling, no longer the assumed commercial product (Adam, 2026-11-24 10:11, "yes internal tooling", `memory/decisions.md`); the section keeps that a session asks Adam again before the tool ships or before non-permissive material comes in.
 
 ---
 
