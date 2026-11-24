@@ -28,7 +28,9 @@ public sealed record TimeSummary(uint FirstRaw, uint LastRaw, long NegativeAsSig
 /// <param name="FirstFrameIndex">The frame index of the first frame that has one.</param>
 /// <param name="LastFrameIndex">The frame index of the last frame that has one.</param>
 /// <param name="HeaderSizes">The header sizes found and how many frames have each.</param>
+/// <param name="FramesWithUntrackedHeaderSizes">Frames whose header size is not in <paramref name="HeaderSizes"/> because <see cref="InventoryBuilder.MaxDistinctValues"/> was reached.</param>
 /// <param name="FrameVersions">The frame versions found and how many frames have each.</param>
+/// <param name="FramesWithUntrackedFrameVersions">Frames whose version is not in <paramref name="FrameVersions"/> because <see cref="InventoryBuilder.MaxDistinctValues"/> was reached.</param>
 /// <param name="DistinctRangeLimitPairs">The number of distinct pairs of range limits (metres) seen, up to <see cref="InventoryBuilder.MaxRangeLimitPairs"/>.</param>
 /// <param name="RangeLimitPairs">The pairs and how many frames have each; frames whose pair arrived after the cap are in <paramref name="FramesWithUntrackedRangeLimits"/>.</param>
 /// <param name="FramesWithUntrackedRangeLimits">Frames with a valid pair that is not tracked because the cap was reached.</param>
@@ -44,7 +46,9 @@ public sealed record ChannelInventory(
     uint? FirstFrameIndex,
     uint? LastFrameIndex,
     IReadOnlyDictionary<long, long> HeaderSizes,
+    long FramesWithUntrackedHeaderSizes,
     IReadOnlyDictionary<uint, long> FrameVersions,
+    long FramesWithUntrackedFrameVersions,
     int DistinctRangeLimitPairs,
     IReadOnlyDictionary<(double Upper, double Lower), long> RangeLimitPairs,
     long FramesWithUntrackedRangeLimits,
@@ -59,6 +63,7 @@ public sealed record ChannelInventory(
 /// <param name="FileSize">The file size in bytes.</param>
 /// <param name="FrameCount">The number of frames read.</param>
 /// <param name="Layouts">The header sizes found and how many frames have each.</param>
+/// <param name="FramesWithUntrackedLayouts">Frames whose header size is not in <paramref name="Layouts"/> because <see cref="InventoryBuilder.MaxDistinctValues"/> was reached.</param>
 /// <param name="Break">Where the chain broke, or <see langword="null"/> when it ended exactly at the end of the file.</param>
 /// <param name="Time">The time field's first and last value, or <see langword="null"/> when no frame has one.</param>
 /// <param name="Checks">The health checks by number (1 to 9) over the whole file.</param>
@@ -68,6 +73,7 @@ public sealed record FileInventory(
     long FileSize,
     long FrameCount,
     IReadOnlyDictionary<long, long> Layouts,
+    long FramesWithUntrackedLayouts,
     ChainBreak? Break,
     TimeSummary? Time,
     IReadOnlyDictionary<int, CheckResult> Checks,
@@ -82,6 +88,9 @@ public sealed class InventoryBuilder
     /// <summary>The most failing positions kept for one check.</summary>
     public const int MaxFailingPositions = 10;
 
+    /// <summary>The most distinct header sizes (per file and per channel) and frame versions (per channel) kept; the header size found is a difference of two stored fields and takes many values on a damaged file.</summary>
+    public const int MaxDistinctValues = 64;
+
     /// <summary>The most distinct pairs of range limits kept for one channel.</summary>
     public const int MaxRangeLimitPairs = 4096;
 
@@ -93,6 +102,7 @@ public sealed class InventoryBuilder
     private readonly SortedDictionary<ushort, ChannelState> channels = [];
     private readonly Tally[] fileChecks = Enumerable.Range(0, 10).Select(_ => new Tally()).ToArray();
     private long frameCount;
+    private long untrackedLayouts;
     private int? previousFrameSize;
     private uint? firstTime;
     private uint lastTime;
@@ -120,7 +130,7 @@ public sealed class InventoryBuilder
         }
 
         frameCount++;
-        layouts[frame.HeaderSize] = layouts.GetValueOrDefault(frame.HeaderSize) + 1;
+        CountDistinct(layouts, frame.HeaderSize, ref untrackedLayouts);
         if (!channels.TryGetValue(frame.ChannelId, out var channel))
         {
             channel = new ChannelState();
@@ -128,7 +138,7 @@ public sealed class InventoryBuilder
         }
 
         channel.FrameCount++;
-        channel.HeaderSizes[frame.HeaderSize] = channel.HeaderSizes.GetValueOrDefault(frame.HeaderSize) + 1;
+        channel.CountHeaderSize(frame.HeaderSize);
         Record(1, channel, true, frame.Position);
         Record(2, channel, true, frame.Position);
         Record(3, channel, HasExpectedHeaderSize(frame), frame.Position);
@@ -150,7 +160,7 @@ public sealed class InventoryBuilder
 
         if (frame.FrameVersion is { } version)
         {
-            channel.FrameVersions[version] = channel.FrameVersions.GetValueOrDefault(version) + 1;
+            channel.CountFrameVersion(version);
         }
 
         channel.LastPosition = frame.Position;
@@ -187,7 +197,7 @@ public sealed class InventoryBuilder
         TimeSummary? time = firstTime is { } first ? new TimeSummary(first, lastTime, negativeTimes) : null;
         var checks = Enumerable.Range(1, 9).ToDictionary(n => n, n => fileChecks[n].ToResult());
         var channelResults = channels.Select(c => c.Value.ToInventory(c.Key)).ToList();
-        return new FileInventory(header, fileSize, frameCount, layouts, chainBreak, time, checks, channelResults);
+        return new FileInventory(header, fileSize, frameCount, layouts, untrackedLayouts, chainBreak, time, checks, channelResults);
     }
 
     private static bool HasExpectedHeaderSize(FrameRecord frame)
@@ -203,7 +213,26 @@ public sealed class InventoryBuilder
             : frame.HeaderSize is 168 or 184;
     }
 
-    private static bool IsVertical(ushort channelId) => channelId is 0 or 1 or 2;
+    private static void CountDistinct<TKey>(SortedDictionary<TKey, long> counts, TKey key, ref long untracked)
+        where TKey : notnull
+    {
+        if (counts.TryGetValue(key, out var count))
+        {
+            counts[key] = count + 1;
+        }
+        else if (counts.Count < MaxDistinctValues)
+        {
+            counts[key] = 1;
+        }
+        else
+        {
+            untracked++;
+        }
+    }
+
+    // Design section 6.8: the range window holds on 2D, Secondary, DownScan and SL2 channels 10 and 11.
+    private static bool IsVertical(FrameRecord frame) =>
+        frame.ChannelId is 0 or 1 or 2 || (frame.Format == FileFormat.Sl2 && frame.ChannelId is 10 or 11);
 
     private void Record(int check, ChannelState channel, bool holds, long position)
     {
@@ -292,7 +321,7 @@ public sealed class InventoryBuilder
         {
             channel.DepthMin = channel.DepthMin is { } min ? Math.Min(min, depth) : depth;
             channel.DepthMax = channel.DepthMax is { } max ? Math.Max(max, depth) : depth;
-            if (limits is { } range && IsVertical(frame.ChannelId))
+            if (limits is { } range && IsVertical(frame))
             {
                 Record(9, channel, depth >= range.Upper && depth <= range.Lower, frame.Position);
             }
@@ -353,6 +382,10 @@ public sealed class InventoryBuilder
 
         public SortedDictionary<long, long> HeaderSizes { get; } = [];
 
+        public long FramesWithUntrackedHeaderSizes { get; set; }
+
+        public long FramesWithUntrackedFrameVersions { get; set; }
+
         public SortedDictionary<uint, long> FrameVersions { get; } = [];
 
         public Dictionary<(double Upper, double Lower), long> RangeLimitPairs { get; } = [];
@@ -368,6 +401,20 @@ public sealed class InventoryBuilder
         public double? DepthMax { get; set; }
 
         public Dictionary<int, Tally> Checks { get; } = new[] { 1, 2, 3, 5, 6, 7, 8, 9 }.ToDictionary(n => n, _ => new Tally());
+
+        public void CountHeaderSize(long size)
+        {
+            var untracked = FramesWithUntrackedHeaderSizes;
+            CountDistinct(HeaderSizes, size, ref untracked);
+            FramesWithUntrackedHeaderSizes = untracked;
+        }
+
+        public void CountFrameVersion(uint version)
+        {
+            var untracked = FramesWithUntrackedFrameVersions;
+            CountDistinct(FrameVersions, version, ref untracked);
+            FramesWithUntrackedFrameVersions = untracked;
+        }
 
         public void CountRangeLimits((double Upper, double Lower) pair)
         {
@@ -392,7 +439,9 @@ public sealed class InventoryBuilder
             FirstFrameIndex,
             LastFrameIndex,
             HeaderSizes,
+            FramesWithUntrackedHeaderSizes,
             FrameVersions,
+            FramesWithUntrackedFrameVersions,
             RangeLimitPairs.Count,
             RangeLimitPairs,
             FramesWithUntrackedRangeLimits,

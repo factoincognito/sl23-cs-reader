@@ -342,6 +342,75 @@ public class InventoryBuilderTests
     }
 
     [Fact]
+    public void CheckNineAlsoAppliesToSl2ChannelsTenAndElevenButNotToSidescanOrSl3ChannelTen()
+    {
+        FrameRecord Out(long position, ushort channel, FileFormat format) =>
+            Frame(position, channel, format == FileFormat.Sl2 ? 144 : 168, 300, format) with { UpperLimitFeet = 10f, LowerLimitFeet = 100f, DepthFeet = 500f };
+
+        var sl2 = Run(
+            Sl2Header,
+            2000,
+            null,
+            Out(8, 10, FileFormat.Sl2),
+            Out(308, 11, FileFormat.Sl2),
+            Out(608, 3, FileFormat.Sl2),
+            Out(908, 4, FileFormat.Sl2),
+            Out(1208, 5, FileFormat.Sl2));
+        var sl3 = Sl3(Out(8, 10, FileFormat.Sl3), Out(308, 11, FileFormat.Sl3));
+
+        AssertCheck(sl2.Checks[9], 0, 2);
+        Assert.Equal([8L, 308L], sl2.Checks[9].FirstFailingPositions);
+        AssertCheck(sl3.Checks[9], 0, 0);
+    }
+
+    [Fact]
+    public void ANonFiniteDepthIsNeitherTestedNorPartOfTheDepthRange()
+    {
+        var inventory = Sl3(
+            Frame(8, 0) with { UpperLimitFeet = 0f, LowerLimitFeet = 100f, DepthFeet = float.NaN },
+            Frame(208, 0) with { UpperLimitFeet = 0f, LowerLimitFeet = 100f, DepthFeet = float.PositiveInfinity },
+            Frame(408, 0) with { UpperLimitFeet = 0f, LowerLimitFeet = 100f, DepthFeet = 30f });
+
+        var channel = Channel(inventory, 0);
+
+        AssertCheck(inventory.Checks[9], 1, 0);
+        Assert.Equal(Units.FeetToMetres(30f), channel.DepthMinMetres);
+        Assert.Equal(Units.FeetToMetres(30f), channel.DepthMaxMetres);
+    }
+
+    [Fact]
+    public void AFrameWithOnlyOneOfTheTwoCoordinatesHasNoValidPosition()
+    {
+        var inventory = Sl3(
+            Frame(8, 0) with { Flags = Units.PositionValidFlag, X = 100 },
+            Frame(208, 0) with { Flags = Units.PositionValidFlag, Y = 100 });
+
+        Assert.Equal(0, Channel(inventory, 0).FramesWithValidPosition);
+    }
+
+    [Fact]
+    public void StopsTrackingNewHeaderSizesAndVersionsAtTheCapAndCountsTheFramesLeftOut()
+    {
+        var total = InventoryBuilder.MaxDistinctValues + 6;
+        var frames = Enumerable.Range(0, total)
+            .Select(i => Frame(8 + (i * 400L), 0, 100 + i, 400) with { FrameVersion = (uint)i })
+            .Append(Frame(8 + (total * 400L), 0, 100, 400) with { FrameVersion = 0 })
+            .ToArray();
+
+        var inventory = Sl3(frames);
+        var channel = Channel(inventory, 0);
+
+        Assert.Equal(InventoryBuilder.MaxDistinctValues, inventory.Layouts.Count);
+        Assert.Equal(6, inventory.FramesWithUntrackedLayouts);
+        Assert.Equal(2, inventory.Layouts[100]);
+        Assert.Equal(InventoryBuilder.MaxDistinctValues, channel.HeaderSizes.Count);
+        Assert.Equal(6, channel.FramesWithUntrackedHeaderSizes);
+        Assert.Equal(InventoryBuilder.MaxDistinctValues, channel.FrameVersions.Count);
+        Assert.Equal(6, channel.FramesWithUntrackedFrameVersions);
+        Assert.Equal(2, channel.FrameVersions[0]);
+    }
+
+    [Fact]
     public void CheckNineDoesNotTestAFrameWithInvalidRangeLimits()
     {
         var inventory = Sl3(
