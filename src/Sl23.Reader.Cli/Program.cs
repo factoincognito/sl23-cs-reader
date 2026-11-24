@@ -3,8 +3,11 @@ namespace Sl23.Reader.Cli;
 /// <summary>The command-line shell's entry point.</summary>
 public static class Program
 {
-    /// <summary>The exit code for a usage error: no command, or an unknown command.</summary>
+    /// <summary>The exit code for a usage error: no command, an unknown command or option, or no input.</summary>
     public const int UsageError = 2;
+
+    /// <summary>The exit code when an input could not be read; the other inputs were still processed.</summary>
+    public const int InputFailed = 1;
 
     /// <summary>Runs the shell with the process's standard streams.</summary>
     /// <param name="args">The command-line arguments.</param>
@@ -22,6 +25,11 @@ public static class Program
         ArgumentNullException.ThrowIfNull(output);
         ArgumentNullException.ThrowIfNull(error);
 
+        if (args.Length > 0 && args[0] == "inventory")
+        {
+            return InventoryCommand.Run(args[1..], output, error);
+        }
+
         if (args.Length == 0)
         {
             error.WriteLine("No command given.");
@@ -32,7 +40,7 @@ public static class Program
         }
 
         error.WriteLine("Usage: sl23-cs-reader <command> [options]");
-        error.WriteLine("No command is available yet.");
+        error.WriteLine("Commands: inventory");
         return UsageError;
     }
 }

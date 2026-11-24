@@ -1,7 +1,9 @@
 <Project Sdk="Microsoft.NET.Sdk">
-  <!-- The command-line shell. It will reference the Sl23.Reader library once
-       the analyses use it. -->
+  <!-- The command-line shell. It wires the Sl23.Reader library to the command line. -->
   <PropertyGroup>
     <OutputType>Exe</OutputType>
   </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Sl23.Reader\Sl23.Reader.csproj" />
+  </ItemGroup>
 </Project>
