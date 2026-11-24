@@ -388,6 +388,27 @@ public class InventoryJsonReportTests
     }
 
     [Fact]
+    public void ANameWithAnUnpairedSurrogateIsWrittenWithTheReplacementCharacter()
+    {
+        // Built here, not in InlineData: the test framework does not carry an unpaired surrogate through its own serialisation.
+        (string Name, string Written)[] cases =
+        [
+            ("a\uD800b", "a\uFFFDb"),
+            ("a\uDC00b", "a\uFFFDb"),
+            ("a\uD800", "a\uFFFD"),
+            ("\uDC00\uD800", "\uFFFD\uFFFD"),
+            ("a\uD83D\uDE00b", "a\uD83D\uDE00b"),
+        ];
+
+        foreach (var (name, written) in cases)
+        {
+            var file = Root(new ReportOptions(true), new FileReport(name, null, FileProblem.NotFound)).GetProperty("files")[0];
+
+            Assert.Equal(written, file.GetProperty("name").GetString());
+        }
+    }
+
+    [Fact]
     public void NumbersAreWrittenTheSameInEveryCulture()
     {
         var before = CultureInfo.CurrentCulture;

@@ -4,7 +4,10 @@ using System.Text.Json;
 
 namespace Sl23.Reader;
 
-/// <summary>Writes the inventory as JSON with the same content as the text report (design sections 4 and 7.2).</summary>
+/// <summary>
+/// Writes the inventory as JSON with the same content as the text report (design sections 4 and 7.2).
+/// The writer uses relaxed escaping, so the output is JSON for a file or a terminal and must not be embedded in HTML.
+/// </summary>
 public static class InventoryJsonReport
 {
     private static readonly JsonWriterOptions WriterOptions = new()
