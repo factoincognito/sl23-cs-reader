@@ -10,6 +10,12 @@ namespace Sl23.Reader;
 /// </summary>
 public static class InventoryJsonReport
 {
+    /// <summary>
+    /// The version of the JSON form, written as the first property of the document, <c>schemaVersion</c>.
+    /// A reader checks it before it reads anything else.
+    /// </summary>
+    public const int SchemaVersion = 1;
+
     private static readonly JsonWriterOptions WriterOptions = new()
     {
         Indented = true,
@@ -30,6 +36,7 @@ public static class InventoryJsonReport
         using (var json = new Utf8JsonWriter(stream, WriterOptions))
         {
             json.WriteStartObject();
+            json.WriteNumber("schemaVersion", SchemaVersion);
             json.WriteNumber("fileCount", files.Count);
             json.WriteBoolean("detailsIncluded", options.IncludeDetails);
             json.WriteStartArray("files");
