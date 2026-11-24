@@ -20,7 +20,7 @@ Last update: 2026-11-24
 Build: the first cut's library and command are merged ([#10](https://github.com/factoincognito/sl23-cs-reader/pull/10) to [#17](https://github.com/factoincognito/sl23-cs-reader/pull/17)): the SL2 and SL3 readers, the inventory with the nine health checks, the text and JSON reports and `sl23-cs-reader inventory`. The design is approved (Adam, 2026-11-23 23:23) and is the specification, [`docs/SPEC.md`](https://github.com/factoincognito/sl23-cs-reader/blob/main/docs/SPEC.md).
 
 ## Current focus
-[CS23-12](https://github.com/factoincognito/sl23-cs-reader/blob/main/docs/BACKLOG.md), the expected figures on the public sonarlight examples. The third-party notices are written ([`THIRD-PARTY-NOTICES.md`](https://github.com/factoincognito/sl23-cs-reader/blob/main/THIRD-PARTY-NOTICES.md), [#20](https://github.com/factoincognito/sl23-cs-reader/pull/20)). [CS23-13](https://github.com/factoincognito/sl23-cs-reader/blob/main/docs/BACKLOG.md) follows up the review notes.
+[CS23-12](https://github.com/factoincognito/sl23-cs-reader/blob/main/docs/BACKLOG.md), the expected figures on the public sonarlight examples. [CS23-13](https://github.com/factoincognito/sl23-cs-reader/blob/main/docs/BACKLOG.md) follows up the review notes.
 
 ## Next step
 [CS23-12](https://github.com/factoincognito/sl23-cs-reader/blob/main/docs/BACKLOG.md), test first, on the two example files Adam gave on 2026-11-24; then [CS23-13](https://github.com/factoincognito/sl23-cs-reader/blob/main/docs/BACKLOG.md), split by area.

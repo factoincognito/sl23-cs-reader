@@ -7,11 +7,20 @@ No third-party file is copied into this repository.
 The template's files (`licenses/NOTICE`) are Adam's own material and not
 third-party (the policy, "Scope and status").
 
+## Intended use
+
+Category assumed for everything in this file: **commercial product**, the
+strictest of the policy's three (Appendix A.1, step 3). Adam has not decided
+the category. The design calls the analyser a proof of concept
+(`docs/SPEC.md`, section 8) and leaves open whether it stays private
+(section 10, point 10), and the project belongs to the Sonatory division; so
+the stricter category is used, as Appendix A.1 says for a case that is not
+clear. Nothing is shipped today, and the policy's release gate comes before
+anything ships.
+
 ## SL2/SL3 format facts
 
-Intended use: the analyser reads Lowrance SL2 and SL3 sonar logs. It is a
-proof of concept and nothing is shipped; the policy's release gate comes
-before anything ships (`docs/SPEC.md`, section 8). Mode: **learn from
+The analyser reads Lowrance SL2 and SL3 sonar logs. Mode: **learn from
 (format facts)**. The layout in `docs/SPEC.md`, section 6, takes offsets,
 types, flag bits and channel names from the two sources below. They reached
 the design through the SL2/SL3 format document of fomo-f, one of Adam's
@@ -49,7 +58,8 @@ code of L and S. The backlog records that code as written to
 
 ## Build and test dependencies
 
-Intended use: building and testing the analyser. Mode: **depend**,
+They build and test the analyser (category: as under "Intended use"; both
+licences allow that use). Mode: **depend**,
 unmodified, restored from NuGet. Only the test project references them, so
 they are in no output of `src/`.
 

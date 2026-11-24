@@ -43,6 +43,7 @@ None.
 ### When you have time
 
 - Confirm the wording of the goal (README "Purpose and goal", `memory/project.md`, the Phase 1 goal below), which is Clead's and not yet confirmed. Clead recommends accepting it as written. Detail: Phase 1 goal below.
+- Decide the intended use of the analyser in the third-party policy's categories (commercial product, internal tooling, or personal or hobby). `THIRD-PARTY-NOTICES.md` assumes commercial product, the strictest, until you do. Clead recommends keeping commercial product: the project is Sonatory's, and the MIT and Apache-2.0 licences involved allow it, so nothing changes today. Detail: CS23-3.
 
 ### Later
 
