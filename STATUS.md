@@ -23,7 +23,7 @@ Build: the first cut's library and command are merged ([#10](https://github.com/
 No work is under way. The next cut waits for Adam's decision (see Next step).
 
 ## Next step
-Adam ran `sl23-cs-reader inventory` on one of his own SL2 files from the command line on 2026-11-24 and gave the default JSON report to a session; he also ran it on one of his own SL3 files as a debug run in VS Code. Both completed successfully. The next cut is not decided: the design leaves it to be decided with the first report in hand ([`docs/SPEC.md`](https://github.com/factoincognito/sl23-cs-reader/blob/main/docs/SPEC.md), section 10, point 2). The follow-ups left over from the reviews are [CS23-19](https://github.com/factoincognito/sl23-cs-reader/blob/main/docs/BACKLOG.md) and need no decision.
+Adam ran `sl23-cs-reader inventory` on one of his own SL2 files from the command line on 2026-11-24 and gave the default JSON report to a session; he also ran it on one of his own SL3 files as a debug run in VS Code. Both completed successfully. No further cut is planned here: Adam decided on 2026-11-24 that the analysis of SL2/SL3 files and captures belongs in fomo-f, where [PBI-3.9](https://github.com/fomo-t/fomo-f/blob/878bf0f281a37a341e5db7625ec6ee350a46c4f4/docs/PRODUCT_BACKLOG.md) carries it in Python. This project stays the proof of concept of the C# pack. The follow-ups left over from the reviews are [CS23-19](https://github.com/factoincognito/sl23-cs-reader/blob/main/docs/BACKLOG.md) and need no decision.
 
 ## Blockers
 None.
