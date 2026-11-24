@@ -79,6 +79,11 @@ None.
   - Shell: folder-listing failures come first in the report whatever their place among the inputs; `Unknown option: {arg}` echoes the argument; the `NotSupportedException` branch of the progress setup only runs on Windows; a folder that cannot be listed is not tested.
 - **[LATER] CS23-14** (Clead, 2026-11-24, from CS23-3) — Third-party material that `THIRD-PARTY-NOTICES.md` does not list, with licences not read: the packages that `xunit.v3` and `coverlet.MTP` bring in, the .NET SDK and runtime, and the GitHub Actions of `.github/workflows/`. They come with the template's C# pack, so the answer may belong in the template. Decide whether they are listed, here or there.
 - **[NEXT] CS23-15** (Clead, 2026-11-24, from CS23-12) — A finding on the public SL2 example goes to fomo-f: health check 6 (the frame index follows the previous one of the channel) fails on 1,288 of the 2,576 frames of each of channels 10 and 11, because each frame index occurs twice there; every other check passes on both whole examples. Sonar format findings are kept in fomo-f (Adam, 2026-11-24 00:36), so a session with push access to fomo-t/fomo-f records it there through fomo-f's flow. Whether check 6 then treats those two channels differently is a change to design 6.3 and Adam's to decide.
+- **[LATER] CS23-16** (Clead, 2026-11-24) — Follow-ups from the non-blocking notes of Crog's reviews of #20 and #21. Not started; any may be dropped if Adam does not want it.
+  - The two tests of the design's figures on the whole sonarlight examples never run in CI (CS23-12), so a later regression of those figures would not turn CI red. A CI step that fetches the two files at the pinned commit and checks their SHA-256 would close it, at the price of a 42 MB download and a network dependency in `build`.
+  - `SonarlightExampleTests.ReadWholeExample`: a SHA-256 mismatch fails without naming the file; a value of `SL23_SONARLIGHT_EXAMPLES` that is only white space counts as set and fails with "folder does not hold".
+  - The whole-file tests do not assert, as the excerpt test does, that the 128-byte headers are on channels 7 and 8 only.
+  - When Adam decides the intended-use category ("Waiting for the product owner"), `THIRD-PARTY-NOTICES.md` and that line are updated together.
 
 ---
 
