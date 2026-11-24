@@ -42,6 +42,7 @@ None.
 
 ### When you have time
 
+- Try [CS23-18](https://github.com/factoincognito/sl23-cs-reader/blob/main/docs/BACKLOG.md): open the folder in VS Code on Windows, open Run and Debug, start "Inventory: ask for the folder to read", enter a folder, and tell a session whether it built and the report appeared. Clead recommends doing it after the PR has merged.
 - Confirm the wording of the goal (README "Purpose and goal", `memory/project.md`, the Phase 1 goal below), which is Clead's and not yet confirmed. Clead recommends accepting it as written. Detail: Phase 1 goal below.
 
 ### Later
@@ -83,7 +84,8 @@ None.
   - `SonarlightExampleTests.ReadWholeExample`: a SHA-256 mismatch fails without naming the file; a value of `SL23_SONARLIGHT_EXAMPLES` that is only white space counts as set and fails with "folder does not hold".
   - The whole-file tests do not assert, as the excerpt test does, that the 128-byte headers are on channels 7 and 8 only.
 - **[DONE] CS23-17** (Adam, 2026-11-24 10:05, "apyr", `memory/decisions.md`; done 2026-11-24; PR #31) — The repository's own licence: a `LICENSE` file at the root with the PolyForm Noncommercial 1.0.0 text (the template ships it as `licenses/PolyForm-Noncommercial-1.0.0.md`) and the line "Required Notice: Copyright Adam Smolowicz". It covers the project's own code only; the sonarlight excerpts and the other third-party files keep their licences (`THIRD-PARTY-NOTICES.md`). `licenses/NOTICE` stays, as the template's. The README says in one line which licence applies to what. The same change updates `THIRD-PARTY-NOTICES.md`, section "Intended use": the category is internal tooling, no longer the assumed commercial product (Adam, 2026-11-24 10:11, "yes internal tooling", `memory/decisions.md`); the section keeps that a session asks Adam again before the tool ships or before non-permissive material comes in.
-- **[NEXT] CS23-18** (Adam, 2026-11-24 10:50, in chat: he wants to run the analyser from VS Code, with the debugger) — `.vscode/tasks.json` and `.vscode/launch.json` for `Sl23.Reader.Cli`: a build task and a launch entry for `inventory` that asks for the folder to read. The repository's `.vscode` holds no tasks or launch file today. Config of any kind is a reviewed change (`rules/RULES.md` § 28 (1) (a)), and the entry is tested in VS Code on Windows before it is done.
+- **[BLOCKED] CS23-18** (Adam, 2026-11-24 10:50, in chat: he wants to run the analyser from VS Code, with the debugger; PR #32; waits for Adam's test in VS Code on Windows) — `.vscode/tasks.json` and `.vscode/launch.json` for `Sl23.Reader.Cli`: a build task and a launch entry for `inventory` that asks for the folder to read. Config of any kind is a reviewed change (`rules/RULES.md` § 28 (1) (a)), and the entry is tested in VS Code on Windows before it is done.
+  - Written 2026-11-24 (PR #32). Not run in VS Code: the build task's command and the launch entry's program path and arguments were run by hand on Linux (build, then `dotnet <dll> inventory <folder>`, exit 0). Done when Adam has run the entry in VS Code on Windows.
 
 ---
 
