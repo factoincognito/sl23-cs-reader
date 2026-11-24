@@ -14,6 +14,7 @@ All notable changes to sl23-cs-reader are documented here.
 - 2026-11-24: the third-party notices added, `THIRD-PARTY-NOTICES.md` (#20).
 - 2026-11-24: tests of the analyser on the public sonarlight example files added, with the first 40 frames of each as test data (#21).
 - 2026-11-24: the follow-ups from the reviews of #20 and #21 recorded as CS23-16 (#22); this line added (#23).
+- 2026-11-24: the decision on the repository's own licence recorded and CS23-17 added (#24); this line added (#25).
 
 ## Project created
 
