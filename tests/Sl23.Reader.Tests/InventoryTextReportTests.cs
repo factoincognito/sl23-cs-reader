@@ -225,6 +225,24 @@ public class InventoryTextReportTests
         Assert.Contains("    Range limits: 4096 distinct pairs, 0 frames without a valid pair, 3 frames beyond the cap not tracked\n", text);
     }
 
+    [Fact]
+    public void HeaderSizesAndVersionsBeyondTheCapAreReportedAsNotTracked()
+    {
+        var total = InventoryBuilder.MaxDistinctValues + 6;
+        var frames = Enumerable.Range(0, total)
+            .Select(i => Frame(8 + (i * 400L), 0, 100 + i, 400) with { FrameVersion = (uint)i })
+            .ToArray();
+
+        var text = Default(new FileReport("f", Inventory(null, 8 + (total * 400L), frames)));
+
+        var layouts = text.Split('\n').Single(l => l.StartsWith("  Layouts: ", StringComparison.Ordinal));
+        var sizes = text.Split('\n').Single(l => l.StartsWith("    Header sizes: ", StringComparison.Ordinal));
+        var versions = text.Split('\n').Single(l => l.StartsWith("    Frame versions: ", StringComparison.Ordinal));
+        Assert.EndsWith(", 6 frames with other sizes not tracked", layouts, StringComparison.Ordinal);
+        Assert.EndsWith(", 6 frames with other sizes not tracked", sizes, StringComparison.Ordinal);
+        Assert.EndsWith(", 6 frames with other versions not tracked", versions, StringComparison.Ordinal);
+    }
+
     [Theory]
     [InlineData(FileProblem.NotFound, "File 1 of 1: could not be read: file not found")]
     [InlineData(FileProblem.AccessDenied, "File 1 of 1: could not be read: access denied")]
