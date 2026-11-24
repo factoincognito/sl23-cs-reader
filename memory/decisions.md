@@ -17,6 +17,8 @@ the project's own rules in `RULES.md`.
 | 2026-11-24 | The analyser's intended use, in the third-party policy's categories, is internal tooling; a session asks Adam again before the tool ships or before non-permissive third-party material comes in. `THIRD-PARTY-NOTICES.md` is changed to say so (CS23-17). | Adam, in chat, 10:11, "yes internal tooling", to Clead's recommendation of 09:50. |
 | 2026-11-24 | The JSON report gets a schema version field, `"schemaVersion": 1` (CS23-20), before anything reads the JSON. | Adam, in chat, 15:48, "apyr" to Clead's recommendation in "Waiting for the product owner". |
 | 2026-11-24 | Health check 6 is not changed for channels 10 and 11 of the public SL2 example until it is known why the frame index occurs twice there (CS23-15). | Adam, in chat, 15:48, "apyr" to Clead's recommendation in "Waiting for the product owner". |
+| 2026-11-24 | The shell's four choices of the `inventory` command are accepted: an empty folder gives exit 1; SLG, unknown-format and too-short files are reported as not read with exit 0; progress from 64 MiB; options `--json`, `--details`, `--help`. Check 9 (depth between the range limits) stays applied to SL2 channels 10 and 11 until a real file shows otherwise (design 6.8; 6.6 calls those channels not established). | Adam, in chat, 16:17, "apyr" to Clead's recommendation in the product office's "Waiting for Adam". |
+| 2026-11-24 | The goal wording is accepted as written: the README's "Purpose and goal", the goals in `memory/project.md` and the Phase 1 goal in the backlog. | Adam, in chat, 16:18, "apyr" to Clead's recommendation. |
 
 ## Open questions
 

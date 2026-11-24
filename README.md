@@ -8,7 +8,7 @@ The analyser reads Lowrance/Navico SL2 and SL3 sonar log files and reports what 
 
 Purpose (Adam, 2026-10-29): first, to prove that the template's C# pack works; the utility itself is secondary, and should, if possible, be useful to us and something that cannot be had by passing the file on to Claude.
 
-Goal (Clead's wording, not yet confirmed by Adam): the template's C# pack is shown to work by building and running this analyser in a repository the bootstrapper created, and the analyser's report tells Adam something about his own SL2/SL3 files that he did not know.
+Goal (Clead's wording, confirmed by Adam, 2026-11-24): the template's C# pack is shown to work by building and running this analyser in a repository the bootstrapper created, and the analyser's report tells Adam something about his own SL2/SL3 files that he did not know.
 
 Division: recorded in the product office's `DECISIONS.md`, row of 2026-11-23 (Adam, 23:23).
 
