@@ -2,7 +2,8 @@
 
 Third-party material this project uses or draws on, as
 `rules/policies/third-party-ip.md` requires (rule 5 and the merge gate).
-No third-party file is copied into this repository.
+The only third-party files copied into this repository are the test data
+under "Test data" below.
 
 The template's files (`licenses/NOTICE`) are Adam's own material and not
 third-party (the policy, "Scope and status").
@@ -26,7 +27,8 @@ types, flag bits and channel names from the two sources below. They reached
 the design through the SL2/SL3 format document of fomo-f, one of Adam's
 repositories (`docs/SL2_SL3_FORMAT.md` at fomo-f
 `ff5f0714a78df7892526cc1ac0d0507e399ce55b`), and stand there in the design's
-own words and tables. No file of either source is in this repository. Both
+own words and tables. No code file of either source is in this repository
+(for the example recordings of S, see "Test data"). Both
 licences are permissive, so no clean room was needed (the policy,
 Appendix A.2).
 
@@ -49,6 +51,27 @@ How the licences were checked:
 Not checked for this file: a comparison of the code under `src/` with the
 code of L and S. The backlog records that code as written to
 `docs/SPEC.md`.
+
+## Test data
+
+Mode: **copy**, unchanged. `tests/Sl23.Reader.Tests/TestData/sonarlight/`
+holds the first 40 frames of each of the two example recordings of
+[KennethTM/sonarlight](https://github.com/KennethTM/sonarlight), taken at
+commit `f8fbb79ed59c3e508bf7595598b2c919293d2d15` (the two recordings are
+the same files at `df834f0d0343a9b0ce18aaf6e8bc8594af368b74`). Licence: MIT,
+"Copyright (c) 2023 Kenneth Thorø Martinsen"; the repository has one
+`LICENSE` file and none of its own for `example_files/`. Its text is carried
+unchanged as `LICENSE` in that folder, and the folder's `README.md` gives
+sizes and hashes. Adam approved the use of an excerpt as test data on
+2026-11-24 00:23. The tests read the excerpts; they are in no output of
+`src/`.
+
+| File here | Bytes | Taken from | Git blob of the source file |
+|---|---:|---|---|
+| `example_sl2_file.first-40-frames.sl2` | 82,608 | the first 82,608 bytes of `example_files/example_sl2_file.sl2` | `c1d664e97962c1cff85135f8c68092b8a2c09335` |
+| `example_sl3_file.first-40-frames.sl3` | 82,768 | the first 82,768 bytes of `example_files/example_sl3_file.sl3` | `db81244b66114643b4229339fa5bee5f3ccb2cf2` |
+
+The whole recordings are not in this repository.
 
 ## Not used
 
