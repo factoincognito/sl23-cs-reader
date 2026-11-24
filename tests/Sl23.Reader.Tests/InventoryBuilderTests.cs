@@ -305,6 +305,17 @@ public class InventoryBuilderTests
     }
 
     [Fact]
+    public void ATimeOfZeroIsNotNegativeAndOneBelowTheSignBitIsNotEither()
+    {
+        var inventory = Sl3(
+            Frame(8, 0) with { TimeRaw = 0 },
+            Frame(208, 0) with { TimeRaw = int.MaxValue },
+            Frame(408, 0) with { TimeRaw = 0x80000000 });
+
+        Assert.Equal(1, inventory.Time!.NegativeAsSigned);
+    }
+
+    [Fact]
     public void CheckNineComparesTheDepthWithTheRangeLimitsOfVerticalChannelsOnly()
     {
         var limits = Frame(8, 0) with { UpperLimitFeet = 0f, LowerLimitFeet = 100f };
