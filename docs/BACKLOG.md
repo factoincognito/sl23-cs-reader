@@ -75,7 +75,7 @@ None.
 - **[NEXT] CS23-13** — Follow-ups from the non-blocking notes of Crog's reviews of #15 to #17. Not started unless noted; any may be dropped if Adam does not want it.
   - Done: a test that a frame without a valid position is not counted in the JSON report (a mutation survived).
   - Done (PR #33): JSON report: a file name with an unpaired surrogate does not make `Utf8JsonWriter` throw on .NET 10; it writes one U+FFFD for each, and a test now pins that; the type summary says the relaxed escaping must not be embedded in HTML.
-  - JSON report, open: no schema or version field (a question for Adam, in "Waiting for the product owner"); `frameVersions` is always present, unlike in the text report.
+  - JSON report, open: no schema or version field; `frameVersions` is always present, unlike in the text report.
   - Text report: "1 bytes" in the layouts and header-size lists; range-limit pairs print at two decimals, so pairs closer than 0.005 m look alike under `--details`; an empty layouts list leaves "Layouts: " with nothing after it; Windows line endings are not tested.
   - Shell: folder-listing failures come first in the report whatever their place among the inputs; `Unknown option: {arg}` echoes the argument; the `NotSupportedException` branch of the progress setup only runs on Windows; a folder that cannot be listed is not tested.
 - **[LATER] CS23-14** (Clead, 2026-11-24, from CS23-3) — Third-party material that `THIRD-PARTY-NOTICES.md` does not list, with licences not read: the packages that `xunit.v3` and `coverlet.MTP` bring in, the .NET SDK and runtime, and the GitHub Actions of `.github/workflows/`. They come with the template's C# pack, so the answer may belong in the template. Decide whether they are listed, here or there.
