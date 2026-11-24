@@ -84,6 +84,7 @@ None.
   - `SonarlightExampleTests.ReadWholeExample`: a SHA-256 mismatch fails without naming the file; a value of `SL23_SONARLIGHT_EXAMPLES` that is only white space counts as set and fails with "folder does not hold".
   - The whole-file tests do not assert, as the excerpt test does, that the 128-byte headers are on channels 7 and 8 only.
   - When Adam decides the intended-use category ("Waiting for the product owner"), `THIRD-PARTY-NOTICES.md` and that line are updated together.
+- **[NEXT] CS23-17** (Adam, 2026-11-24 10:05, "apyr", `memory/decisions.md`) — The repository's own licence: a `LICENSE` file at the root with the PolyForm Noncommercial 1.0.0 text (the template ships it as `licenses/PolyForm-Noncommercial-1.0.0.md`) and the line "Required Notice: Copyright Adam Smolowicz". It covers the project's own code only; the sonarlight excerpts and the other third-party files keep their licences (`THIRD-PARTY-NOTICES.md`). `licenses/NOTICE` stays, as the template's. The README says in one line which licence applies to what.
 
 ---
 
