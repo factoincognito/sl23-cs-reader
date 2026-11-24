@@ -136,6 +136,21 @@ public class InventoryTextReportTests
     }
 
     [Fact]
+    public void WithDetailsThePairsAreListedByUpperThenLowerLimit()
+    {
+        var inventory = Inventory(
+            null,
+            1000,
+            Frame(8) with { UpperLimitFeet = 10f, LowerLimitFeet = 100f },
+            Frame(208) with { UpperLimitFeet = 0f, LowerLimitFeet = 120f },
+            Frame(408) with { UpperLimitFeet = 0f, LowerLimitFeet = 100f });
+
+        var text = Report(new ReportOptions(true), new FileReport("f", inventory));
+
+        Assert.Contains("(m, upper to lower): 0.00 to 30.48 x 1, 0.00 to 36.58 x 1, 3.05 to 30.48 x 1\n", text);
+    }
+
+    [Fact]
     public void FilesAreNumberedInTheOrderGiven()
     {
         var text = Default(
@@ -241,6 +256,17 @@ public class InventoryTextReportTests
         Assert.Contains("File 1 of 3: 5 bytes, not read: shorter than the 8-byte file header\n", text);
         Assert.Contains("File 2 of 3: 1500 bytes, not read: file header format code 1 (SLG), not read further\n", text);
         Assert.Contains("File 3 of 3: 20 bytes, not read: file header format code 9 (unknown), not read further\n", text);
+    }
+
+    [Fact]
+    public void AFileWithNeitherAnInventoryNorAReasonIsReportedAsNotRead()
+    {
+        var text = Default(
+            new FileReport("a", null),
+            new FileReport("b", null, FileProblem.FormatNotRead, Size: 20));
+
+        Assert.Contains("File 1 of 2: could not be read\n", text);
+        Assert.Contains("File 2 of 2: could not be read\n", text);
     }
 
     [Fact]
