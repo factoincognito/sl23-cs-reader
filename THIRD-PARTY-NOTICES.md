@@ -10,14 +10,11 @@ third-party (the policy, "Scope and status").
 
 ## Intended use
 
-Category assumed for everything in this file: **commercial product**, the
-strictest of the policy's three (Appendix A.1, step 3). Adam has not decided
-the category. The design calls the analyser a proof of concept
-(`docs/SPEC.md`, section 8) and leaves open whether it stays private
-(section 10, point 10), and the project belongs to the Sonatory division; so
-the stricter category is used, as Appendix A.1 says for a case that is not
-clear. Nothing is shipped today, and the policy's release gate comes before
-anything ships.
+Category for everything in this file: **internal tooling** (the policy,
+Appendix A.1, step 3), decided by Adam on 2026-11-24 10:11
+(`memory/decisions.md`). A session asks Adam again before the tool ships and
+before third-party material that is not permissively licensed comes in. The
+policy's release gate comes before anything ships. Nothing is shipped today.
 
 ## SL2/SL3 format facts
 
