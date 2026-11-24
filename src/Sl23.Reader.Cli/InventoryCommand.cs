@@ -21,8 +21,9 @@ public static class InventoryCommand
     /// <param name="output">Standard output: the report.</param>
     /// <param name="error">Standard error: messages and progress.</param>
     /// <param name="progressThreshold">The file size in bytes from which progress is written.</param>
+    /// <param name="enumerateFiles">Lists the files directly in a folder; the default is <see cref="Directory.EnumerateFiles(string)"/>, and tests give one that fails.</param>
     /// <returns>The exit code: 0, <see cref="Program.InputFailed"/> when an input could not be read, or <see cref="Program.UsageError"/>.</returns>
-    public static int Run(IReadOnlyList<string> args, TextWriter output, TextWriter error, long progressThreshold = DefaultProgressThreshold)
+    public static int Run(IReadOnlyList<string> args, TextWriter output, TextWriter error, long progressThreshold = DefaultProgressThreshold, Func<string, IEnumerable<string>>? enumerateFiles = null)
     {
         ArgumentNullException.ThrowIfNull(args);
         ArgumentNullException.ThrowIfNull(output);
@@ -56,7 +57,7 @@ public static class InventoryCommand
                     help = true;
                     break;
                 default:
-                    error.WriteLine($"Unknown option: {arg}");
+                    error.WriteLine($"Unknown option: {Program.Printable(arg)}");
                     error.WriteLine(Usage);
                     return Program.UsageError;
             }
@@ -75,21 +76,21 @@ public static class InventoryCommand
             return Program.UsageError;
         }
 
+        enumerateFiles ??= Directory.EnumerateFiles;
         var failed = false;
-        var reports = new List<FileReport>();
-        var paths = new List<string>();
+        var items = new List<(FileReport? Failure, string? Path)>();
         foreach (var input in inputs)
         {
             if (!Directory.Exists(input))
             {
-                paths.Add(input);
+                items.Add((null, input));
                 continue;
             }
 
-            var listed = List(input);
+            var listed = List(input, enumerateFiles);
             if (listed.Problem != FileProblem.None)
             {
-                reports.Add(new FileReport(input, null, listed.Problem));
+                items.Add((new FileReport(input, null, listed.Problem), null));
                 failed = true;
             }
             else if (listed.Files.Count == 0)
@@ -98,16 +99,15 @@ public static class InventoryCommand
                 failed = true;
             }
 
-            paths.AddRange(listed.Files);
+            items.AddRange(listed.Files.Select(file => ((FileReport?)null, (string?)file)));
         }
 
-        var count = paths.Count + reports.Count;
-        var results = new List<FileReport>(reports);
-        var number = reports.Count;
-        foreach (var path in paths)
+        var results = new List<FileReport>();
+        var number = 0;
+        foreach (var (failure, path) in items)
         {
             number++;
-            results.Add(FileAnalyser.Analyse(path, ProgressTo(error, path, number, count, progressThreshold)));
+            results.Add(failure ?? FileAnalyser.Analyse(path!, ProgressTo(error, path!, number, items.Count, progressThreshold)));
         }
 
         failed |= results.Any(result => result.Problem is FileProblem.NotFound or FileProblem.AccessDenied or FileProblem.ReadFailed);
@@ -124,11 +124,11 @@ public static class InventoryCommand
         return failed ? Program.InputFailed : 0;
     }
 
-    private static (FileProblem Problem, List<string> Files) List(string folder)
+    private static (FileProblem Problem, List<string> Files) List(string folder, Func<string, IEnumerable<string>> enumerateFiles)
     {
         try
         {
-            var files = Directory.EnumerateFiles(folder)
+            var files = enumerateFiles(folder)
                 .Where(file => file.EndsWith(".sl2", StringComparison.OrdinalIgnoreCase) || file.EndsWith(".sl3", StringComparison.OrdinalIgnoreCase))
                 .Order(StringComparer.Ordinal)
                 .ToList();
@@ -153,6 +153,8 @@ public static class InventoryCommand
         }
         catch (Exception exception) when (exception is IOException or UnauthorizedAccessException or ArgumentException or NotSupportedException)
         {
+            // NotSupportedException comes from Windows path rules (a colon that is not part of a drive name), so no test on
+            // another platform reaches it. Without a size there is no progress.
             return null;
         }
 

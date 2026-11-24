@@ -36,11 +36,17 @@ public static class Program
         }
         else
         {
-            error.WriteLine($"Unknown command: {args[0]}");
+            error.WriteLine($"Unknown command: {Printable(args[0])}");
         }
 
         error.WriteLine("Usage: sl23-cs-reader <command> [options]");
         error.WriteLine("Commands: inventory");
         return UsageError;
     }
+
+    /// <summary>Text for a message: each control character is written as \uXXXX, so an argument cannot move the cursor or recolour a terminal.</summary>
+    /// <param name="text">The text the user gave.</param>
+    /// <returns>The text with control characters escaped.</returns>
+    internal static string Printable(string text) =>
+        string.Concat(text.Select(c => char.IsControl(c) ? string.Create(System.Globalization.CultureInfo.InvariantCulture, $"\\u{(int)c:X4}") : c.ToString()));
 }

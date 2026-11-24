@@ -33,6 +33,18 @@ public class ProgramTests
     }
 
     [Fact]
+    public void AnUnknownCommandIsEchoedWithItsControlCharactersEscaped()
+    {
+        using var output = new StringWriter();
+        using var error = new StringWriter();
+
+        Program.Run(["bad\u001b[31m"], output, error);
+
+        Assert.Contains("Unknown command: bad\\u001B[31m", error.ToString(), StringComparison.Ordinal);
+        Assert.DoesNotContain('\u001b', error.ToString());
+    }
+
+    [Fact]
     public void ARunWithoutOutputWritersIsRefused()
     {
         using var writer = new StringWriter();
